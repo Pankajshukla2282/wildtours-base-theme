@@ -1,0 +1,15 @@
+{
+    "name": "wildtours/base-theme",
+    "description": "WildTours Base Theme",
+    "type": "wordpress-theme",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "WildTours\\Base\\": "app/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    }
+}
