@@ -103,5 +103,17 @@ final class Performance extends AbstractService
     ): string {
         return $html;
     }
-
+    /**
+     * Cleanup frontend assets.
+     *
+     * Placeholder implementation. The original project appears to have
+     * registered this callback but the method was removed during a refactor.
+     * Returning without changes preserves default WordPress behaviour.
+     *
+     * @return void
+     */
+    public function cleanupAssets(): void
+    {
+        // Intentionally left blank.
+    }
 }
