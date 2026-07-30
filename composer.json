@@ -3,13 +3,25 @@
     "description": "WildTours Base Theme",
     "type": "wordpress-theme",
     "license": "GPL-2.0-or-later",
+
     "autoload": {
         "psr-4": {
             "WildTours\\Base\\": "app/"
         }
     },
+
+    "autoload-dev": {
+        "psr-4": {
+            "WildTours\\Base\\Tests\\": "tests/"
+        }
+    },
+
     "config": {
         "optimize-autoloader": true,
         "sort-packages": true
-    }
+    },
+
+    "minimum-stability": "stable",
+
+    "prefer-stable": true
 }

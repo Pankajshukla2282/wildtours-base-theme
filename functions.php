@@ -1,20 +1,68 @@
 <?php
+
 /**
  * WildTours Base Theme
  *
  * Bootstrap file.
+ *
+ * @package WildTours\Base
  */
 
 declare(strict_types=1);
 
 defined('ABSPATH') || exit;
 
-define('WTBT_PATH', get_template_directory());
-define('WTBT_URI', get_template_directory_uri());
-define('WTBT_VERSION', wp_get_theme()->get('Version'));
+/*
+|--------------------------------------------------------------------------
+| Theme Constants
+|--------------------------------------------------------------------------
+*/
 
-require_once WTBT_PATH . '/vendor/autoload.php';
+define('WILDTOURS_BASE_VERSION', '1.0.0');
 
-use WildTours\Base\Core\Application;
+define('WILDTOURS_BASE_PATH', trailingslashit(__DIR__));
 
-Application::boot();
+define('WILDTOURS_BASE_URL', trailingslashit(get_template_directory_uri()));
+
+/*
+|--------------------------------------------------------------------------
+| Composer Autoloader
+|--------------------------------------------------------------------------
+*/
+
+$autoload = WILDTOURS_BASE_PATH . 'vendor/autoload.php';
+
+if (! file_exists($autoload)) {
+
+    wp_die(
+        esc_html__(
+            'Composer dependencies are missing. Please run "composer install".',
+            'wildtours-base'
+        )
+    );
+
+}
+
+require_once $autoload;
+
+/*
+|--------------------------------------------------------------------------
+| Compatibility Layer
+|--------------------------------------------------------------------------
+*/
+
+require_once WILDTOURS_BASE_PATH . 'inc/compatibility.php';
+
+require_once WILDTOURS_BASE_PATH . 'inc/deprecated.php';
+
+require_once WILDTOURS_BASE_PATH . 'inc/template-functions.php';
+
+require_once WILDTOURS_BASE_PATH . 'inc/template-tags.php';
+
+/*
+|--------------------------------------------------------------------------
+| Bootstrap Application
+|--------------------------------------------------------------------------
+*/
+
+WildTours\Base\Core\Application::boot();

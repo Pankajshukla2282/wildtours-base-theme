@@ -4,11 +4,25 @@ declare(strict_types=1);
 
 namespace WildTours\Base\Core;
 
-use Closure;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionNamedType;
 use RuntimeException;
 
+defined('ABSPATH') || exit;
+
+/**
+ * Lightweight dependency injection container.
+ */
 final class Container
 {
+    /**
+     * Registered service providers.
+     *
+     * @var array<int, ServiceProvider>
+     */
+    private array $providers = [];
+
     /**
      * Shared instances.
      *
@@ -17,66 +31,153 @@ final class Container
     private array $instances = [];
 
     /**
-     * Service bindings.
+     * Interface bindings.
      *
-     * @var array<string, Closure>
+     * @var array<string, class-string>
      */
     private array $bindings = [];
 
     /**
-     * Register a singleton instance.
+     * Register a service provider.
      */
-    public function singleton(string $id, object $instance): void
+    public function register(string $provider): void
     {
-        $this->instances[$id] = $instance;
-    }
-
-    /**
-     * Register a lazy-loaded service.
-     */
-    public function bind(string $id, Closure $resolver): void
-    {
-        $this->bindings[$id] = $resolver;
-    }
-
-    /**
-     * Resolve a service.
-     */
-    public function make(string $id): object
-    {
-        if ($this->has($id)) {
-            return $this->instances[$id];
+        foreach ($this->providers as $registered) {
+            if ($registered instanceof $provider) {
+                return;
+            }
         }
 
-        if (! isset($this->bindings[$id])) {
+        $this->providers[] = new $provider($this);
+    }
+
+    /**
+     * Boot all providers.
+     */
+    public function boot(): void
+    {
+        foreach ($this->providers as $provider) {
+
+            $provider->register();
+
+            $provider->boot();
+        }
+    }
+
+    /**
+     * Bind an abstraction.
+     *
+     * Example:
+     *
+     * $container->bind(
+     *     MailerInterface::class,
+     *     WPMailer::class
+     * );
+     */
+    public function bind(string $abstract, string $concrete): void
+    {
+        $this->bindings[$abstract] = $concrete;
+    }
+
+    /**
+     * Register an existing instance.
+     */
+    public function instance(string $abstract, object $instance): void
+    {
+        $this->instances[$abstract] = $instance;
+    }
+
+    /**
+     * Register a singleton.
+     */
+    public function singleton(string $abstract, string $concrete): void
+    {
+        $this->bindings[$abstract] = $concrete;
+
+        if (!isset($this->instances[$abstract])) {
+            $this->instances[$abstract] = $this->build($concrete);
+        }
+    }
+
+    /**
+     * Resolve a class.
+     *
+     * @throws RuntimeException
+     */
+    public function make(string $abstract): object
+    {
+        if (isset($this->instances[$abstract])) {
+            return $this->instances[$abstract];
+        }
+
+        $concrete = $this->bindings[$abstract] ?? $abstract;
+
+        return $this->build($concrete);
+    }
+
+    /**
+     * Build an object using reflection.
+     *
+     * @throws RuntimeException
+     */
+    private function build(string $class): object
+    {
+        try {
+            $reflection = new ReflectionClass($class);
+        } catch (ReflectionException $exception) {
             throw new RuntimeException(
-                sprintf(
-                    'Service "%s" has not been registered.',
-                    $id
-                )
+                sprintf('Unable to resolve [%s].', $class),
+                0,
+                $exception
             );
         }
 
-        $instance = ($this->bindings[$id])($this);
+        if (!$reflection->isInstantiable()) {
+            throw new RuntimeException(
+                sprintf('Class [%s] is not instantiable.', $class)
+            );
+        }
 
-        $this->singleton($id, $instance);
+        $constructor = $reflection->getConstructor();
 
-        return $instance;
+        if ($constructor === null) {
+            return new $class();
+        }
+
+        $dependencies = [];
+
+        foreach ($constructor->getParameters() as $parameter) {
+
+            $type = $parameter->getType();
+
+            if (!$type instanceof ReflectionNamedType || $type->isBuiltin()) {
+
+                if ($parameter->isDefaultValueAvailable()) {
+                    $dependencies[] = $parameter->getDefaultValue();
+                    continue;
+                }
+
+                throw new RuntimeException(
+                    sprintf(
+                        'Unable to resolve parameter [$%s] in [%s].',
+                        $parameter->getName(),
+                        $class
+                    )
+                );
+            }
+
+            $dependencies[] = $this->make($type->getName());
+        }
+
+        return $reflection->newInstanceArgs($dependencies);
     }
 
     /**
-     * Get an existing singleton.
+     * Determine whether an abstraction is registered.
      */
-    public function get(string $id): ?object
+    public function has(string $abstract): bool
     {
-        return $this->instances[$id] ?? null;
-    }
-
-    /**
-     * Determine if a singleton exists.
-     */
-    public function has(string $id): bool
-    {
-        return isset($this->instances[$id]);
+        return isset($this->instances[$abstract])
+            || isset($this->bindings[$abstract]);
     }
 }

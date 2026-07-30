@@ -1,209 +1,56 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/theme.json",
-  "version": 3,
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
 
-  "settings": {
-    "appearanceTools": true,
-    "useRootPaddingAwareAlignments": true,
+    "settings": {
 
-    "layout": {
-      "contentSize": "840px",
-      "wideSize": "1320px"
-    },
+        "appearanceTools": true,
 
-    "spacing": {
-      "units": [
-        "px",
-        "rem",
-        "em",
-        "%",
-        "vw",
-        "vh"
-      ],
-      "padding": true,
-      "margin": true,
-      "blockGap": true
-    },
+        "useRootPaddingAwareAlignments": true,
 
-    "dimensions": {
-      "minHeight": true
-    },
-
-    "position": {
-      "sticky": true
-    },
-
-    "typography": {
-      "dropCap": false,
-      "customFontSize": true,
-      "customLineHeight": true,
-      "customFontWeight": true,
-      "fluid": true,
-      "fontSizes": [
-        {
-          "slug": "xs",
-          "name": "Extra Small",
-          "size": "0.75rem"
+        "layout": {
+            "contentSize": "800px",
+            "wideSize": "1200px"
         },
-        {
-          "slug": "sm",
-          "name": "Small",
-          "size": "0.875rem"
-        },
-        {
-          "slug": "md",
-          "name": "Medium",
-          "size": "1rem"
-        },
-        {
-          "slug": "lg",
-          "name": "Large",
-          "size": "1.5rem"
-        },
-        {
-          "slug": "xl",
-          "name": "Extra Large",
-          "size": "2rem"
-        },
-        {
-          "slug": "xxl",
-          "name": "Display",
-          "size": "3.5rem"
-        }
-      ]
-    },
 
-    "color": {
-      "defaultPalette": false,
-      "defaultGradients": false,
-      "defaultDuotone": false,
-      "custom": true,
-      "customGradient": true,
-
-      "palette": [
-        {
-          "slug": "primary",
-          "name": "Primary",
-          "color": "#0B6E4F"
+        "spacing": {
+            "units": [
+                "px",
+                "rem",
+                "%",
+                "vw",
+                "vh"
+            ]
         },
-        {
-          "slug": "secondary",
-          "name": "Secondary",
-          "color": "#F4A261"
-        },
-        {
-          "slug": "accent",
-          "name": "Accent",
-          "color": "#2A9D8F"
-        },
-        {
-          "slug": "dark",
-          "name": "Dark",
-          "color": "#264653"
-        },
-        {
-          "slug": "light",
-          "name": "Light",
-          "color": "#F8F9FA"
-        },
-        {
-          "slug": "white",
-          "name": "White",
-          "color": "#FFFFFF"
-        },
-        {
-          "slug": "black",
-          "name": "Black",
-          "color": "#111111"
-        }
-      ],
 
-      "gradients": [
-        {
-          "slug": "primary-gradient",
-          "name": "Primary",
-          "gradient": "linear-gradient(135deg,#0B6E4F,#2A9D8F)"
-        },
-        {
-          "slug": "sunset",
-          "name": "Sunset",
-          "gradient": "linear-gradient(135deg,#F4A261,#E76F51)"
-        }
-      ]
-    },
-
-    "border": {
-      "color": true,
-      "radius": true,
-      "style": true,
-      "width": true
-    },
-
-    "shadow": {
-      "defaultPresets": true
-    }
-  },
-
-  "styles": {
-    "spacing": {
-      "blockGap": "1.5rem"
-    },
-
-    "typography": {
-      "fontSize": "1rem",
-      "lineHeight": "1.7"
-    },
-
-    "elements": {
-
-      "heading": {
         "typography": {
-          "lineHeight": "1.2",
-          "fontWeight": "700"
-        }
-      },
-
-      "link": {
-        "color": {
-          "text": "var:preset|color|primary"
-        }
-      },
-
-      "button": {
-        "color": {
-          "background": "var:preset|color|primary",
-          "text": "var:preset|color|white"
+            "fluid": true
         },
-        "border": {
-          "radius": "4px"
+
+        "color": {
+            "defaultPalette": true,
+            "defaultGradients": true
+        },
+
+        "blocks": {
+
         }
-      }
-    }
-  },
 
-  "customTemplates": [
-    {
-      "name": "full-width",
-      "title": "Full Width"
     },
-    {
-      "name": "landing-page",
-      "title": "Landing Page"
-    }
-  ],
 
-  "templateParts": [
-    {
-      "name": "header",
-      "title": "Header",
-      "area": "header"
+    "styles": {
+
+        "spacing": {
+
+        },
+
+        "typography": {
+
+        }
+
     },
-    {
-      "name": "footer",
-      "title": "Footer",
-      "area": "footer"
-    }
-  ],
 
-  "patterns": []
+    "templateParts": [
+
+    ]
 }
