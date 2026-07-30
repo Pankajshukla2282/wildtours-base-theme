@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace WildTours\Base\Providers;
 
 use WildTours\Base\Core\Application;
-use WildTours\Base\Core\Contracts\ServiceProvider;
+use WildTours\Base\Core\ServiceProvider;
 use WildTours\Base\Theme\Hooks;
 use WildTours\Base\Theme\ImageManager;
 use WildTours\Base\Theme\ThemeSupport;
