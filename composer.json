@@ -1,8 +1,35 @@
 {
     "name": "wildtours/base-theme",
-    "description": "WildTours Base Theme",
+    "description": "Enterprise WordPress base theme for WildTours, compatible with Gutenberg and Getwid Base architecture.",
     "type": "wordpress-theme",
     "license": "GPL-2.0-or-later",
+
+    "keywords": [
+        "Panna", 
+        "Wild Tour", 
+        "Wildlife", 
+        "Tourism", 
+        "Travel", 
+        "Adventure",
+        "wordpress",
+        "theme",
+        "gutenberg",
+        "getwid",
+        "travel",
+        "enterprise"
+    ],
+
+    "authors": [
+        {
+            "name": "Panna Wild Tour",
+            "role": "Maintainer"
+        }
+    ],
+
+    "require": {
+        "php": "^8.2",
+        "composer/installers": "^2.3"
+    },
 
     "autoload": {
         "psr-4": {
@@ -16,12 +43,30 @@
         }
     },
 
+    "scripts": {
+        "post-install-cmd": [
+            "@composer dump-autoload -o"
+        ],
+        "post-update-cmd": [
+            "@composer dump-autoload -o"
+        ],
+        "lint": [
+            "php -l functions.php"
+        ]
+    },
+
     "config": {
         "optimize-autoloader": true,
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/installers": true
+        }
     },
 
     "minimum-stability": "stable",
+    "prefer-stable": true,
 
-    "prefer-stable": true
+    "support": {
+        "issues": "https://github.com/Pankajshukla2282/wildtours-base-theme/issues"
+    }
 }

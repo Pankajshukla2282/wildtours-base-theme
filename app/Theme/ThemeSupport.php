@@ -6,6 +6,8 @@ namespace WildTours\Base\Theme;
 
 defined('ABSPATH') || exit;
 
+use WildTours\Base\Support\Theme;
+
 /**
  * Registers classic WordPress theme features.
  *
@@ -29,7 +31,6 @@ final class ThemeSupport
         $this->loadTextDomain();
         $this->registerSupports();
         $this->registerMenus();
-        $this->registerImageSizes();
     }
 
     /**
@@ -39,7 +40,7 @@ final class ThemeSupport
     {
         load_theme_textdomain(
             'wildtours-base',
-            get_template_directory() . '/languages'
+            Theme::languagesPath()
         );
     }
 
@@ -116,32 +117,5 @@ final class ThemeSupport
             'footer'    => esc_html__('Footer Navigation', 'wildtours-base'),
             'social'    => esc_html__('Social Links', 'wildtours-base'),
         ]);
-    }
-
-    /**
-     * Register image sizes.
-     */
-    private function registerImageSizes(): void
-    {
-        add_image_size(
-            'wildtours-featured',
-            1600,
-            900,
-            true
-        );
-
-        add_image_size(
-            'wildtours-card',
-            768,
-            512,
-            true
-        );
-
-        add_image_size(
-            'wildtours-thumbnail',
-            480,
-            320,
-            true
-        );
     }
 }

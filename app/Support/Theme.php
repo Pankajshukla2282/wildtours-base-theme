@@ -32,7 +32,13 @@ final class Theme
      */
     public static function path(string $path = ''): string
     {
-        return trailingslashit(get_template_directory()) . ltrim($path, '/');
+        $path = ltrim($path, '/');
+
+        if ($path === '') {
+            return trailingslashit(get_theme_file_path());
+        }
+
+        return trailingslashit(get_theme_file_path($path));
     }
 
     /**
@@ -40,7 +46,13 @@ final class Theme
      */
     public static function uri(string $path = ''): string
     {
-        return trailingslashit(get_template_directory_uri()) . ltrim($path, '/');
+        $path = ltrim($path, '/');
+
+        if ($path === '') {
+            return trailingslashit(get_theme_file_uri());
+        }
+
+        return trailingslashit(get_theme_file_uri($path));
     }
 
     /**

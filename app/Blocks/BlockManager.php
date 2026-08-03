@@ -17,11 +17,6 @@ final class BlockManager
     public function register(): void
     {
         add_action(
-            'after_setup_theme',
-            [$this, 'registerFeatures']
-        );
-
-        add_action(
             'init',
             [$this, 'registerPatterns']
         );
@@ -30,20 +25,6 @@ final class BlockManager
             'init',
             [$this, 'registerPatternCategories']
         );
-    }
-
-    /**
-     * Register block editor features.
-     */
-    public function registerFeatures(): void
-    {
-        add_theme_support('wp-block-styles');
-        add_theme_support('align-wide');
-        add_theme_support('responsive-embeds');
-        add_theme_support('editor-styles');
-        add_theme_support('appearance-tools');
-        add_theme_support('custom-spacing');
-        add_theme_support('custom-line-height');
     }
 
     /**

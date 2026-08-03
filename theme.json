@@ -1,56 +1,144 @@
 {
-    "$schema": "https://schemas.wp.org/trunk/theme.json",
-    "version": 3,
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
 
-    "settings": {
+  "settings": {
+    "appearanceTools": true,
 
-        "appearanceTools": true,
-
-        "useRootPaddingAwareAlignments": true,
-
-        "layout": {
-            "contentSize": "800px",
-            "wideSize": "1200px"
-        },
-
-        "spacing": {
-            "units": [
-                "px",
-                "rem",
-                "%",
-                "vw",
-                "vh"
-            ]
-        },
-
-        "typography": {
-            "fluid": true
-        },
-
-        "color": {
-            "defaultPalette": true,
-            "defaultGradients": true
-        },
-
-        "blocks": {
-
-        }
-
+    "layout": {
+      "contentSize": "1200px",
+      "wideSize": "1400px"
     },
 
-    "styles": {
+    "useRootPaddingAwareAlignments": true,
 
-        "spacing": {
-
+    "color": {
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "palette": [
+        {
+          "slug": "primary",
+          "name": "Primary",
+          "color": "#2F6F3E"
         },
-
-        "typography": {
-
+        {
+          "slug": "primary-dark",
+          "name": "Primary Dark",
+          "color": "#1F4E2C"
+        },
+        {
+          "slug": "secondary",
+          "name": "Secondary",
+          "color": "#C69214"
+        },
+        {
+          "slug": "accent",
+          "name": "Accent",
+          "color": "#D97706"
+        },
+        {
+          "slug": "white",
+          "name": "White",
+          "color": "#FFFFFF"
+        },
+        {
+          "slug": "black",
+          "name": "Black",
+          "color": "#000000"
         }
-
+      ]
     },
 
-    "templateParts": [
+    "spacing": {
+      "units": [
+        "px",
+        "em",
+        "rem",
+        "%"
+      ]
+    },
 
-    ]
+    "typography": {
+      "fluid": true,
+
+      "fontSizes": [
+        {
+          "slug": "small",
+          "size": "0.875rem",
+          "name": "Small"
+        },
+        {
+          "slug": "medium",
+          "size": "1.125rem",
+          "name": "Medium"
+        },
+        {
+          "slug": "large",
+          "size": "2rem",
+          "name": "Large"
+        },
+        {
+          "slug": "x-large",
+          "size": "3rem",
+          "name": "Extra Large"
+        }
+      ]
+    },
+
+    "blocks": {
+      "core/button": {
+        "border": {
+          "radius": true
+        }
+      },
+
+      "core/navigation": {
+        "typography": {
+          "fontSize": "1rem"
+        }
+      }
+    }
+  },
+
+  "styles": {
+    "typography": {
+      "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      "lineHeight": "1.6"
+    },
+
+    "spacing": {
+      "blockGap": "1.5rem"
+    },
+
+    "elements": {
+      "button": {
+        "border": {
+          "radius": "8px"
+        }
+      }
+    }
+  },
+
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Header",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Footer",
+      "area": "footer"
+    }
+  ],
+
+  "customTemplates": [
+    {
+      "name": "blank",
+      "title": "Blank Page",
+      "postTypes": [
+        "page"
+      ]
+    }
+  ]
 }
