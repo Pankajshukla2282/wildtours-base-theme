@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace WildTours\Base\Providers;
 
-use WildTours\Base\Core\Application;
 use WildTours\Base\Core\ServiceProvider;
 use WildTours\Base\Theme\Hooks;
 use WildTours\Base\Theme\ImageManager;
@@ -18,45 +17,45 @@ defined('ABSPATH') || exit;
  *
  * @package WildTours\Base
  */
-final class ThemeServiceProvider implements ServiceProvider
+final class ThemeServiceProvider extends ServiceProvider
 {
     /**
      * Register services with the application container.
      */
-    public function register(Application $app): void
+    public function register(): void
     {
-        $app->singleton(
+        $this->singleton(
             ThemeSupport::class,
-            static fn (): ThemeSupport => new ThemeSupport()
+            ThemeSupport::class
         );
 
-        $app->singleton(
+        $this->singleton(
             WidgetManager::class,
-            static fn (): WidgetManager => new WidgetManager()
+            WidgetManager::class
         );
 
-        $app->singleton(
+        $this->singleton(
             ImageManager::class,
-            static fn (): ImageManager => new ImageManager()
+            ImageManager::class
         );
 
-        $app->singleton(
+        $this->singleton(
             Hooks::class,
-            static fn (): Hooks => new Hooks()
+            Hooks::class
         );
     }
 
     /**
      * Boot registered services.
      */
-    public function boot(Application $app): void
+    public function boot(): void
     {
-        $app->make(ThemeSupport::class)->boot();
+        $this->make(ThemeSupport::class)->boot();
 
-        $app->make(WidgetManager::class)->boot();
+        $this->make(WidgetManager::class)->boot();
 
-        $app->make(ImageManager::class)->boot();
+        $this->make(ImageManager::class)->boot();
 
-        $app->make(Hooks::class)->boot();
+        $this->make(Hooks::class)->boot();
     }
 }

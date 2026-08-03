@@ -1,0 +1,5 @@
+/* Login screen overrides for WildTours base theme. */
+
+body.login {
+    background: #f5f7f9;
+}

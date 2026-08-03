@@ -38,7 +38,7 @@ final class Theme
             return trailingslashit(get_theme_file_path());
         }
 
-        return trailingslashit(get_theme_file_path($path));
+        return get_theme_file_path($path);
     }
 
     /**
@@ -52,7 +52,7 @@ final class Theme
             return trailingslashit(get_theme_file_uri());
         }
 
-        return trailingslashit(get_theme_file_uri($path));
+        return get_theme_file_uri($path);
     }
 
     /**
