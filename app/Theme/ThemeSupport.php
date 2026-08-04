@@ -103,7 +103,9 @@ final class ThemeSupport
 
         add_theme_support('editor-styles');
 
-        add_editor_style('assets/css/editor.css');
+        add_editor_style(
+            Theme::assetUri('css/editor.css') . '?ver=' . Theme::assetVersion('css/editor.css')
+        );
     }
 
     /**

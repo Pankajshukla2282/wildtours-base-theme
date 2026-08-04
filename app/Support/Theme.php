@@ -72,6 +72,24 @@ final class Theme
     }
 
     /**
+     * Asset version string based on the file modification time.
+     */
+    public static function assetVersion(string $path): string
+    {
+        $basePath = defined('WILDTOURS_BASE_PATH')
+            ? WILDTOURS_BASE_PATH
+            : trailingslashit(get_theme_file_path());
+
+        $filePath = $basePath . 'assets/' . ltrim($path, '/');
+
+        if (file_exists($filePath)) {
+            return (string) filemtime($filePath);
+        }
+
+        return self::version();
+    }
+
+    /**
      * App path.
      */
     public static function appPath(string $path = ''): string
