@@ -20,6 +20,16 @@ defined('ABSPATH') || exit;
         role="contentinfo"
     >
 
+        <div class="footer-widgets">
+
+            <?php
+            get_template_part(
+                'template-parts/footer/widgets'
+            );
+            ?>
+
+        </div>
+
         <?php
         get_template_part(
             'template-parts/footer/site',

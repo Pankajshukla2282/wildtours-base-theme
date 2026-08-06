@@ -51,15 +51,7 @@ defined('ABSPATH') || exit;
 
     </div>
 
-    <footer class="entry-footer">
-
-        <?php
-        get_template_part(
-            'template-parts/components/entry-footer'
-        );
-        ?>
-
-    </footer>
+    <?php wildtours_entry_footer(); ?>
 
 </article>
 
