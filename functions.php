@@ -63,32 +63,29 @@ $autoload = WILDTOURS_BASE_PATH . 'vendor/autoload.php';
 
 if (! file_exists($autoload)) {
 
-    if (is_admin()) {
-
-        add_action(
-            'admin_notices',
-            static function (): void {
-                ?>
-                <div class="notice notice-error">
-                    <p>
-                        <?php esc_html_e(
-                            'WildTours Base Theme requires Composer dependencies. Please run "composer install".',
-                            'wildtours-base-theme'
-                        ); ?>
-                    </p>
-                </div>
-                <?php
-            }
-        );
-
+    if (WILDTOURS_DEBUG) {
+        error_log('[WildTours Base Theme] Composer autoload.php not found. Using fallback autoloader.');
     }
 
-    error_log('[WildTours Base Theme] Composer autoload.php not found.');
+    spl_autoload_register(
+        static function (string $class): void {
+            $prefix = 'WildTours\\Base\\';
 
-    return;
+            if (0 !== strpos($class, $prefix)) {
+                return;
+            }
+
+            $relativeClass = substr($class, strlen($prefix));
+            $path = WILDTOURS_BASE_PATH . 'app/' . str_replace('\\', '/', $relativeClass) . '.php';
+
+            if (file_exists($path)) {
+                require_once $path;
+            }
+        }
+    );
+} else {
+    require_once $autoload;
 }
-
-require_once $autoload;
 
 /*
 |--------------------------------------------------------------------------

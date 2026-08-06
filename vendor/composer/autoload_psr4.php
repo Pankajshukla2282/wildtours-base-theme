@@ -6,5 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'WildTours\\Base\\Tests\\' => array($baseDir . '/tests'),
     'WildTours\\Base\\' => array($baseDir . '/app'),
+    'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
 );
