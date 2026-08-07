@@ -2,6 +2,10 @@ const initNavigation = () => {
     const navigation = document.getElementById('site-navigation');
     const button = document.querySelector('.menu-toggle');
     const menu = document.getElementById('primary-menu');
+    const searchWrap = navigation ? navigation.querySelector('.header-search') : null;
+    const searchToggle = searchWrap ? searchWrap.querySelector('.header-search-toggle') : null;
+    const searchPanel = searchWrap ? searchWrap.querySelector('.header-search-panel') : null;
+    const searchField = searchWrap ? searchWrap.querySelector('.search-field') : null;
 
     if (!navigation || !button || !menu) {
         return;
@@ -14,6 +18,21 @@ const initNavigation = () => {
         navigation.classList.toggle('is-open', expanded);
         menu.classList.toggle('is-open', expanded);
         menu.style.display = expanded ? 'grid' : 'none';
+    };
+
+    const setSearchState = (expanded, focusField = false) => {
+        if (!searchWrap || !searchToggle || !searchPanel) {
+            return;
+        }
+
+        searchWrap.classList.add('is-collapsible');
+        searchWrap.classList.toggle('is-open', expanded);
+        searchToggle.setAttribute('aria-expanded', String(expanded));
+        searchPanel.hidden = !expanded;
+
+        if (expanded && focusField && searchField) {
+            searchField.focus();
+        }
     };
 
     const setSubmenuState = (item, expanded) => {
@@ -75,11 +94,16 @@ const initNavigation = () => {
         });
     };
 
+    const closeSearch = () => {
+        setSearchState(false);
+    };
+
     const syncMenuState = () => {
         const isMobile = mobileBreakpoint.matches;
 
         button.hidden = !isMobile;
         setMenuState(!isMobile);
+        setSearchState(false);
 
         if (!isMobile) {
             menu.style.display = 'flex';
@@ -101,16 +125,35 @@ const initNavigation = () => {
         setMenuState(!expanded);
     });
 
+    if (searchToggle && searchPanel) {
+        setSearchState(false);
+
+        searchToggle.addEventListener('click', () => {
+            const expanded = searchToggle.getAttribute('aria-expanded') === 'true';
+
+            setSearchState(!expanded, !expanded);
+        });
+    }
+
     document.addEventListener('click', (event) => {
         if (!navigation.contains(event.target)) {
             closeMenu();
+            closeSearch();
         }
     });
 
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
+            const searchWasOpen = Boolean(searchWrap && searchWrap.classList.contains('is-open'));
+
             closeMenu();
-            button.focus();
+            closeSearch();
+
+            if (searchWasOpen && searchToggle) {
+                searchToggle.focus();
+            } else {
+                button.focus();
+            }
         }
     });
 

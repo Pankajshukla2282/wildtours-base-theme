@@ -20,6 +20,10 @@ $placeholder = apply_filters(
     )
 );
 
+$searchFieldId = function_exists('wp_unique_id')
+    ? wp_unique_id('search-field-')
+    : 'search-field-' . uniqid('', false);
+
 ?>
 
 <form
@@ -29,7 +33,7 @@ $placeholder = apply_filters(
     action="<?php echo esc_url(home_url('/')); ?>"
 >
 
-    <label class="screen-reader-text" for="search-field">
+    <label class="screen-reader-text" for="<?php echo esc_attr($searchFieldId); ?>">
 
         <?php
         esc_html_e(
@@ -41,7 +45,7 @@ $placeholder = apply_filters(
     </label>
 
     <input
-        id="search-field"
+        id="<?php echo esc_attr($searchFieldId); ?>"
         class="search-field"
         type="search"
         name="s"

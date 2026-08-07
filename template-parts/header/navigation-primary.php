@@ -266,4 +266,25 @@ defined('ABSPATH') || exit;
 
     ?>
 
+    <div class="header-search" role="search">
+        <button
+            class="header-search-toggle"
+            type="button"
+            aria-controls="header-search-panel"
+            aria-expanded="false"
+        >
+            <span class="screen-reader-text">
+                <?php esc_html_e('Toggle search', 'wildtours-base'); ?>
+            </span>
+            <span aria-hidden="true">🔍</span>
+        </button>
+
+        <div
+            id="header-search-panel"
+            class="header-search-panel"
+        >
+            <?php get_search_form(); ?>
+        </div>
+    </div>
+
 </nav>
