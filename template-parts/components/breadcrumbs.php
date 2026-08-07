@@ -23,6 +23,8 @@ if (! $has_custom_breadcrumbs && ! $has_plugin_breadcrumbs && is_front_page() &&
     return;
 }
 
+$breadcrumb_markup = '';
+
 $trail = [];
 
 $trail[] = [
@@ -126,63 +128,52 @@ if (!$has_custom_breadcrumbs && !$has_plugin_breadcrumbs) {
     }
 }
 
+if ($has_custom_breadcrumbs) {
+    ob_start();
+    do_action('wildtours/base/breadcrumbs');
+    $breadcrumb_markup = trim((string) ob_get_clean());
+} elseif (function_exists('yoast_breadcrumb')) {
+    ob_start();
+    yoast_breadcrumb(
+        '<span class="breadcrumb-trail">',
+        '</span>'
+    );
+    $breadcrumb_markup = trim((string) ob_get_clean());
+} elseif (function_exists('rank_math_the_breadcrumbs')) {
+    ob_start();
+    rank_math_the_breadcrumbs();
+    $breadcrumb_markup = trim((string) ob_get_clean());
+} elseif (function_exists('bcn_display')) {
+    ob_start();
+    bcn_display();
+    $breadcrumb_markup = trim((string) ob_get_clean());
+} else {
+    ob_start();
+    ?>
+    <ol class="breadcrumb-trail">
+        <?php foreach ($trail as $index => $item) : ?>
+            <li class="breadcrumb-item">
+                <?php if ($index === array_key_last($trail) || empty($item['url'])) : ?>
+                    <span aria-current="page"><?php echo esc_html($item['label']); ?></span>
+                <?php else : ?>
+                    <a href="<?php echo esc_url($item['url']); ?>"><?php echo esc_html($item['label']); ?></a>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ol>
+    <?php
+    $breadcrumb_markup = trim((string) ob_get_clean());
+}
+
+if ($breadcrumb_markup === '' || trim(wp_strip_all_tags($breadcrumb_markup)) === '') {
+    return;
+}
+
 ?>
 
 <nav
     class="breadcrumbs"
     aria-label="<?php esc_attr_e('Breadcrumb', 'wildtours-base'); ?>"
 >
-
-    <?php
-
-    /**
-     * Theme/child-theme hook.
-     */
-    if ($has_custom_breadcrumbs) {
-
-        do_action('wildtours/base/breadcrumbs');
-
-    } elseif (function_exists('yoast_breadcrumb')) {
-
-        yoast_breadcrumb(
-            '<span class="breadcrumb-trail">',
-            '</span>'
-        );
-
-    } elseif (function_exists('rank_math_the_breadcrumbs')) {
-
-        rank_math_the_breadcrumbs();
-
-    } elseif (function_exists('bcn_display')) {
-
-        bcn_display();
-
-    } else {
-
-        ?>
-
-        <ol class="breadcrumb-trail">
-
-            <?php foreach ($trail as $index => $item) : ?>
-
-                <li class="breadcrumb-item">
-
-                    <?php if ($index === array_key_last($trail) || empty($item['url'])) : ?>
-                        <span aria-current="page"><?php echo esc_html($item['label']); ?></span>
-                    <?php else : ?>
-                        <a href="<?php echo esc_url($item['url']); ?>"><?php echo esc_html($item['label']); ?></a>
-                    <?php endif; ?>
-
-                </li>
-
-            <?php endforeach; ?>
-
-        </ol>
-
-        <?php
-
-    }
-
-    ?>
-
+    <?php echo wp_kses_post($breadcrumb_markup); ?>
 </nav>
