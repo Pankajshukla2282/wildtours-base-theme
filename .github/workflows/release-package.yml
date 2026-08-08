@@ -47,12 +47,11 @@ jobs:
           git push origin "HEAD:${GITHUB_REF_NAME}"
           echo "Bumped ${CUR} -> ${NEW}"
 
-      - name: Setup PHP
+      - name: Check PHP and Composer
         if: steps.skip-check.outputs.skip != 'true'
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          tools: composer
+        run: |
+          php -v
+          composer --version
 
       - name: Install dependencies
         if: steps.skip-check.outputs.skip != 'true'
