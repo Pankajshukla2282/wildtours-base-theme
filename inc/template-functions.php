@@ -110,6 +110,63 @@ if (!function_exists('wildtours_excerpt_more')) {
     }
 }
 
+if (!function_exists('wildtours_sidebar_layout')) {
+
+    /**
+     * Returns the sidebar layout for the current view.
+     *
+     * Values: 'none' (default), 'right'.
+     *
+     * @return string
+     */
+    function wildtours_sidebar_layout(): string
+    {
+        $layout = (string) get_theme_mod(
+            'sidebar_layout',
+            'none'
+        );
+
+        return (string) apply_filters(
+            'wildtours/base/sidebar_layout',
+            $layout
+        );
+    }
+}
+
+if (!function_exists('wildtours_show_sidebar')) {
+
+    /**
+     * Whether the primary sidebar should render on this view.
+     */
+    function wildtours_show_sidebar(): bool
+    {
+        if (!is_active_sidebar('sidebar-1')) {
+            return false;
+        }
+
+        if (!in_array(wildtours_sidebar_layout(), ['right'], true)) {
+            return false;
+        }
+
+        if (is_singular()) {
+            $postType = get_post_type();
+
+            if (
+                is_string($postType)
+                && str_starts_with($postType, 'pwt_')
+            ) {
+                return false;
+            }
+        }
+
+        if (is_post_type_archive() && str_starts_with((string) get_post_type(), 'pwt_')) {
+            return false;
+        }
+
+        return true;
+    }
+}
+
 if (!function_exists('wildtours_pingback_header')) {
 
     /**

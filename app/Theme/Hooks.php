@@ -92,6 +92,10 @@ final class Hooks
             $classes[] = 'has-custom-logo';
         }
 
+        if (function_exists('wildtours_show_sidebar') && wildtours_show_sidebar()) {
+            $classes[] = 'layout-has-sidebar';
+        }
+
         if (wp_is_block_theme()) {
             $classes[] = 'is-block-theme';
         } else {

@@ -12,15 +12,38 @@ defined('ABSPATH') || exit;
 
 get_header();
 
-while (have_posts()) :
+$hasSidebar = wildtours_show_sidebar();
+?>
 
-    the_post();
+<div class="content-area<?php echo $hasSidebar ? ' content-area--with-sidebar' : ''; ?>">
 
-    get_template_part(
-        'template-parts/content/content',
-        get_post_type()
-    );
+    <main
+        id="primary"
+        class="site-main"
+    >
 
-endwhile;
+        <?php
+        while (have_posts()) :
 
+            the_post();
+
+            get_template_part(
+                'template-parts/content/content',
+                get_post_type()
+            );
+
+        endwhile;
+        ?>
+
+    </main>
+
+    <?php if ($hasSidebar) : ?>
+
+        <?php get_sidebar(); ?>
+
+    <?php endif; ?>
+
+</div>
+
+<?php
 get_footer();

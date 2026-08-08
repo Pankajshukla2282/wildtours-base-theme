@@ -139,6 +139,27 @@
       "postTypes": [
         "page"
       ]
+    },
+    {
+      "name": "template-full-width",
+      "title": "Full Width Page",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "template-no-title",
+      "title": "No Title Page",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "template-landing",
+      "title": "Landing Page",
+      "postTypes": [
+        "page"
+      ]
     }
   ]
 }
