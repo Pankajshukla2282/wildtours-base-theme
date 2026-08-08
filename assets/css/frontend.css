@@ -915,8 +915,8 @@ a:focus {
 @media (min-width: 961px) {
 	:root {
 		--wt-nav-link-padding-inline: 0.75rem;
-		--wt-nav-link-padding-right: 0.85rem;
-		--wt-nav-link-padding-right-has-children: 0.85rem;
+		--wt-nav-link-padding-right: 0.75rem;
+		--wt-nav-link-padding-right-has-children: 0.75rem;
 		--wt-nav-link-min-height: 2.05rem;
 		--wt-nav-link-line-height: 1.1;
 		--wt-nav-submenu-link-min-height: 1.75rem;
