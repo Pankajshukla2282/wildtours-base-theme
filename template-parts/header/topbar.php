@@ -18,8 +18,7 @@ $pwt_cta_label = (string) get_theme_mod('header_cta_label', '');
 $pwt_cta_url = (string) get_theme_mod('header_cta_url', '');
 
 $pwt_has_utility = $pwt_topbar_text !== ''
-    || $pwt_cta_label !== ''
-    || count(wildtours_currencies()) > 1;
+    || $pwt_cta_label !== '';
 ?>
 <?php if ($pwt_has_utility) : ?>
 
@@ -30,8 +29,6 @@ $pwt_has_utility = $pwt_topbar_text !== ''
         <?php endif; ?>
 
         <div class="topbar-utility">
-
-            <?php wildtours_component('currency-switcher'); ?>
 
             <?php wildtours_component('language-switcher'); ?>
 
