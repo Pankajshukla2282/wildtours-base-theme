@@ -976,8 +976,20 @@ a:focus {
 
 	.site-header {
 		grid-template-columns: auto minmax(0, 1fr);
+		grid-template-rows: auto auto;
 		align-items: center;
 		gap: 0.75rem 1.25rem;
+	}
+
+	.site-header .topbar {
+		grid-column: 1 / -1;
+		grid-row: 1;
+	}
+
+	.site-header .site-branding {
+		grid-column: 1;
+		grid-row: 2;
+		justify-self: start;
 	}
 
 	.site-header .primary-navigation {
@@ -986,6 +998,8 @@ a:focus {
 		justify-content: flex-end;
 		gap: 0.65rem;
 		width: 100%;
+		grid-column: 2;
+		grid-row: 2;
 		justify-self: end;
 	}
 
@@ -1765,6 +1779,7 @@ body.pwt-blank .pwt-blank-main > * {
 	align-items: center;
 	flex-wrap: wrap;
 	gap: 0.6rem;
+	margin-left: auto;
 }
 
 .topbar-cta {
