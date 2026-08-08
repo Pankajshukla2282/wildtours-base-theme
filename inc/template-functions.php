@@ -457,6 +457,25 @@ if (!function_exists('wildtours_whatsapp_number')) {
     }
 }
 
+if (!function_exists('wildtours_archive_columns')) {
+
+    /**
+     * Number of columns for travel post type archives.
+     */
+    function wildtours_archive_columns(): int
+    {
+        $columns = (int) get_theme_mod(
+            'max_post_columns',
+            3
+        );
+
+        return max(
+            2,
+            min(4, (int) apply_filters('wildtours/base/archive_columns', $columns))
+        );
+    }
+}
+
 if (!function_exists('wildtours_pingback_header')) {
 
     /**

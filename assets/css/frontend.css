@@ -1666,9 +1666,86 @@ body.pwt-blank .pwt-blank-main > * {
 
 /*
 |--------------------------------------------------------------------------
+| Travel archive grid
+|--------------------------------------------------------------------------
+*/
+
+.site-main.pwt-archive-grid {
+	grid-template-columns: repeat(
+		var(--pwt-archive-columns, 3),
+		minmax(0, 1fr)
+	);
+	align-items: stretch;
+}
+
+.site-main.pwt-archive-grid .page-header,
+.site-main.pwt-archive-grid .archive-header {
+	grid-column: 1 / -1;
+}
+
+.site-main.pwt-archive-grid .card {
+	height: 100%;
+}
+
+@media (max-width: 1100px) {
+	.site-main.pwt-archive-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 640px) {
+	.site-main.pwt-archive-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/*
+|--------------------------------------------------------------------------
 | Header elevation
 |--------------------------------------------------------------------------
 */
+
+.topbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem 1rem;
+	padding: 0.5rem 0;
+	border-bottom: 1px solid var(--wt-color-border);
+}
+
+.topbar-text {
+	margin: 0;
+	color: var(--wt-color-muted);
+	font-size: 0.88rem;
+}
+
+.topbar-utility {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+}
+
+.topbar-cta {
+	min-height: 2.15rem;
+	padding: 0.3rem 1rem;
+	font-size: 0.88rem;
+}
+
+.site-info {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+}
+
+.site-info p {
+	margin: 0;
+	color: var(--wt-color-muted);
+}
 
 .site-header {
 	transition: box-shadow 0.25s ease;

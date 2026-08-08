@@ -13,13 +13,22 @@ defined('ABSPATH') || exit;
 get_header();
 
 $hasSidebar = wildtours_show_sidebar();
+
+$queriedType = get_query_var('post_type');
+
+$isTravelArchive = is_string($queriedType)
+    && str_starts_with($queriedType, 'pwt_')
+    && $queriedType !== '';
 ?>
 
 <div class="content-area<?php echo $hasSidebar ? ' content-area--with-sidebar' : ''; ?>">
 
     <main
         id="primary"
-        class="site-main"
+        class="site-main<?php echo $isTravelArchive ? ' pwt-archive-grid' : ''; ?>"
+        <?php if ($isTravelArchive) : ?>
+            style="--pwt-archive-columns: <?php echo esc_attr((string) wildtours_archive_columns()); ?>;"
+        <?php endif; ?>
     >
 
         <?php if (have_posts()) : ?>
@@ -36,10 +45,18 @@ $hasSidebar = wildtours_show_sidebar();
 
                 the_post();
 
-                get_template_part(
-                    'template-parts/content/content',
-                    get_post_type()
-                );
+                $postType = (string) get_post_type();
+
+                if (str_starts_with($postType, 'pwt_')) {
+                    wildtours_component('trip-card', [
+                        'post' => get_the_ID(),
+                    ]);
+                } else {
+                    get_template_part(
+                        'template-parts/content/content',
+                        get_post_type()
+                    );
+                }
 
             endwhile;
 

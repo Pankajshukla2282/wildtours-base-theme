@@ -7,6 +7,7 @@ namespace WildTours\Base\Providers;
 use WildTours\Base\Core\ServiceProvider;
 use WildTours\Base\Theme\Hooks;
 use WildTours\Base\Theme\ImageManager;
+use WildTours\Base\Theme\Schema;
 use WildTours\Base\Theme\ThemeSupport;
 use WildTours\Base\Theme\WidgetManager;
 
@@ -43,6 +44,11 @@ final class ThemeServiceProvider extends ServiceProvider
             Hooks::class,
             Hooks::class
         );
+
+        $this->singleton(
+            Schema::class,
+            Schema::class
+        );
     }
 
     /**
@@ -57,5 +63,7 @@ final class ThemeServiceProvider extends ServiceProvider
         $this->make(ImageManager::class)->boot();
 
         $this->make(Hooks::class)->boot();
+
+        $this->make(Schema::class)->boot();
     }
 }

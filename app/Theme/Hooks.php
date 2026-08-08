@@ -54,6 +54,11 @@ final class Hooks
             [$this, 'outputFloatingElements']
         );
 
+        add_action(
+            'wp_head',
+            [$this, 'printDynamicStyles']
+        );
+
         /**
          * Uncomment only if you intentionally want
          * to disable WordPress automatic image scaling.
@@ -226,5 +231,86 @@ final class Hooks
     {
         wildtours_component('whatsapp-float');
         wildtours_component('back-to-top');
+    }
+
+    /**
+     * Print dynamic CSS variables from Customizer settings.
+     */
+    public function printDynamicStyles(): void
+    {
+        $variables = [];
+
+        $width = (int) get_theme_mod('container_width', 1200);
+
+        if ($width >= 960) {
+            $variables['--wt-layout-width'] = $width . 'px';
+        }
+
+        $scheme = (string) get_theme_mod('color_scheme', 'forest');
+
+        $schemes = (array) apply_filters(
+            'wildtours/base/color_schemes',
+            [
+                'forest' => [],
+                'desert' => [
+                    '--wt-color-primary' => '#B45309',
+                    '--wt-color-primary-dark' => '#92400E',
+                    '--wt-color-accent' => '#C2410C',
+                ],
+                'savanna' => [
+                    '--wt-color-primary' => '#5C6B2E',
+                    '--wt-color-primary-dark' => '#44551F',
+                    '--wt-color-accent' => '#C69214',
+                ],
+                'ocean' => [
+                    '--wt-color-primary' => '#0F766E',
+                    '--wt-color-primary-dark' => '#115E59',
+                    '--wt-color-accent' => '#0284C7',
+                ],
+            ]
+        );
+
+        if (isset($schemes[$scheme])) {
+            foreach ($schemes[$scheme] as $property => $value) {
+                $variables[$property] = $value;
+            }
+        }
+
+        $primary = sanitize_hex_color((string) get_theme_mod('primary_color', ''));
+
+        if ($primary !== '') {
+            $variables['--wt-color-primary'] = $primary;
+        }
+
+        $accent = sanitize_hex_color((string) get_theme_mod('accent_color', ''));
+
+        if ($accent !== '') {
+            $variables['--wt-color-accent'] = $accent;
+        }
+
+        /**
+         * Allow child themes and plugins to inject extra variables.
+         */
+        $variables = (array) apply_filters(
+            'wildtours/base/dynamic_css_variables',
+            $variables
+        );
+
+        if ($variables === []) {
+            return;
+        }
+
+        $css = ':root{';
+
+        foreach ($variables as $property => $value) {
+            $css .= esc_attr($property) . ':' . esc_attr((string) $value) . ';';
+        }
+
+        $css .= '}';
+
+        printf(
+            "<style id=\"wildtours-dynamic-css\">%s</style>\n",
+            $css // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        );
     }
 }
