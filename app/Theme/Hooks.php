@@ -44,6 +44,16 @@ final class Hooks
             [$this, 'archiveTitle']
         );
 
+        add_action(
+            'init',
+            [$this, 'handleNewsletter']
+        );
+
+        add_action(
+            'wp_footer',
+            [$this, 'outputFloatingElements']
+        );
+
         /**
          * Uncomment only if you intentionally want
          * to disable WordPress automatic image scaling.
@@ -143,5 +153,78 @@ final class Hooks
         }
 
         return $title;
+    }
+
+    /**
+     * Capture newsletter submissions.
+     *
+     * Stored in the wildtours_newsletter_subscribers option; plugins can
+     * intercept the wildtours/base/newsletter/handler filter instead.
+     */
+    public function handleNewsletter(): void
+    {
+        if (!isset($_POST['pwt_newsletter'])) {
+            return;
+        }
+
+        $payload = wp_unslash($_POST['pwt_newsletter']); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+
+        $email = isset($payload['email'])
+            ? sanitize_email((string) $payload['email'])
+            : '';
+
+        $nonce = isset($payload['nonce'])
+            ? sanitize_key((string) $payload['nonce'])
+            : '';
+
+        if (
+            $email === ''
+            || !wp_verify_nonce($nonce, 'pwt_newsletter')
+        ) {
+            wp_safe_redirect(
+                add_query_arg('pwt_newsletter', 'error', home_url('/'))
+            );
+            exit;
+        }
+
+        /**
+         * Let plugins handle the subscription themselves.
+         */
+        $handled = apply_filters(
+            'wildtours/base/newsletter/handler',
+            false,
+            $email
+        );
+
+        if (!$handled) {
+            $subscribers = (array) get_option(
+                'wildtours_newsletter_subscribers',
+                []
+            );
+
+            $subscribers[md5($email)] = [
+                'email' => $email,
+                'date' => current_time('mysql'),
+            ];
+
+            update_option(
+                'wildtours_newsletter_subscribers',
+                array_slice($subscribers, -500, 500, true)
+            );
+        }
+
+        wp_safe_redirect(
+            add_query_arg('pwt_newsletter', 'success', home_url('/'))
+        );
+        exit;
+    }
+
+    /**
+     * Output floating UI elements (WhatsApp + back to top).
+     */
+    public function outputFloatingElements(): void
+    {
+        wildtours_component('whatsapp-float');
+        wildtours_component('back-to-top');
     }
 }

@@ -18,6 +18,10 @@
  * - excerpt_length int         Word count for the excerpt.
  * - meta_key      string       Post meta key rendered as a chip.
  * - meta_label    string       Human label for the chip.
+ * - meta          array        Optional list of chips:
+ *                              [ [ 'label' => 'Duration', 'value' => '4 Days' ], ... ]
+ *                              or [ 'duration' => '4 Days' ]. Takes priority
+ *                              over meta_key/meta_label.
  * - price         string       Pre-formatted price line (already escaped-safe markup string is escaped).
  * - price_label   string       Label for the price line.
  * - cta_label     string       Label for the details link.
@@ -40,6 +44,7 @@ $showCta       = (bool) ($args['show_cta'] ?? true);
 $excerptLength = (int) ($args['excerpt_length'] ?? 20);
 $metaKey       = (string) ($args['meta_key'] ?? '');
 $metaLabel     = (string) ($args['meta_label'] ?? '');
+$metaChips     = (array) ($args['meta'] ?? []);
 $price         = (string) ($args['price'] ?? '');
 $priceLabel    = (string) ($args['price_label'] ?? '');
 $ctaLabel      = (string) ($args['cta_label'] ?? __('View details', 'wildtours-base'));
@@ -67,7 +72,34 @@ if ($custom !== '') {
 }
 
 $permalink  = get_permalink($post);
+
 $metaValue  = $metaKey !== '' ? get_post_meta($post->ID, $metaKey, true) : '';
+
+if ($metaChips !== []) {
+    $metaChips = array_map(static function ($chip) {
+        if (is_array($chip)) {
+            return [
+                'label' => (string) ($chip['label'] ?? ''),
+                'value' => (string) ($chip['value'] ?? ''),
+            ];
+        }
+
+        return [
+            'label' => '',
+            'value' => (string) $chip,
+        ];
+    }, $metaChips);
+
+    $metaChips = array_filter(
+        $metaChips,
+        static fn (array $chip): bool => $chip['value'] !== ''
+    );
+} elseif ($metaValue !== '') {
+    $metaChips = [[
+        'label' => $metaLabel,
+        'value' => (string) $metaValue,
+    ]];
+}
 $excerpt    = wp_trim_words(
     wp_strip_all_tags((string) (get_the_excerpt($post) ?: $post->post_content)),
     max(1, $excerptLength),
@@ -126,15 +158,21 @@ $classNames = apply_filters(
 
         <?php endif; ?>
 
-        <?php if ($showMeta && $metaValue !== '') : ?>
+        <?php if ($showMeta && $metaChips !== []) : ?>
 
             <ul class="card-meta">
-                <li class="card-chip">
-                    <?php if ($metaLabel !== '') : ?>
-                        <span class="card-chip-label"><?php echo esc_html($metaLabel); ?>:</span>
-                    <?php endif; ?>
-                    <?php echo esc_html((string) $metaValue); ?>
-                </li>
+
+                <?php foreach ($metaChips as $chip) : ?>
+
+                    <li class="card-chip">
+                        <?php if ($chip['label'] !== '') : ?>
+                            <span class="card-chip-label"><?php echo esc_html($chip['label']); ?>:</span>
+                        <?php endif; ?>
+                        <?php echo esc_html($chip['value']); ?>
+                    </li>
+
+                <?php endforeach; ?>
+
             </ul>
 
         <?php endif; ?>
