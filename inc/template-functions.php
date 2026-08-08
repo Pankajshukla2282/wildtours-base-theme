@@ -219,7 +219,7 @@ if (!function_exists('wildtours_currency')) {
         $currencies = wildtours_currencies();
 
         $cookie = isset($_COOKIE['wt_currency'])
-            ? sanitize_key((string) wp_unslash($_COOKIE['wt_currency']))
+            ? strtoupper((string) sanitize_text_field(wp_unslash($_COOKIE['wt_currency'])))
             : '';
 
         if (isset($currencies[$cookie])) {
