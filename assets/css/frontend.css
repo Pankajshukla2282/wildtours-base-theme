@@ -57,6 +57,134 @@ img {
 	height: auto;
 }
 
+/* --------------------------------------------------------------------------
+   Responsive media
+   - Images and native video scale with their container.
+   - Embedded media (oEmbed, iframes, embeds, objects) stay fluid.
+   - Aspect-ratio rules power WordPress `responsive-embeds`.
+   -------------------------------------------------------------------------- */
+
+video {
+	max-width: 100%;
+	height: auto;
+}
+
+iframe,
+embed,
+object {
+	max-width: 100%;
+	border: 0;
+}
+
+.entry-content iframe,
+.entry-content embed,
+.entry-content object,
+.page-content iframe,
+.page-content embed,
+.page-content object,
+.wp-block-embed iframe,
+.wp-block-embed embed,
+.wp-block-embed object {
+	max-width: 100%;
+}
+
+.wp-block-embed {
+	overflow: hidden;
+}
+
+.wp-has-aspect-ratio .wp-block-embed__wrapper {
+	position: relative;
+	width: 100%;
+}
+
+.wp-has-aspect-ratio .wp-block-embed__wrapper iframe,
+.wp-has-aspect-ratio .wp-block-embed__wrapper embed,
+.wp-has-aspect-ratio .wp-block-embed__wrapper object {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.wp-embed-aspect-21-9 .wp-block-embed__wrapper::before {
+	content: "";
+	display: block;
+	padding-top: 42.85%;
+}
+
+.wp-embed-aspect-18-9 .wp-block-embed__wrapper::before,
+.wp-embed-aspect-16-9 .wp-block-embed__wrapper::before {
+	content: "";
+	display: block;
+	padding-top: 56.25%;
+}
+
+.wp-embed-aspect-4-3 .wp-block-embed__wrapper::before {
+	content: "";
+	display: block;
+	padding-top: 75%;
+}
+
+.wp-embed-aspect-1-1 .wp-block-embed__wrapper::before {
+	content: "";
+	display: block;
+	padding-top: 100%;
+}
+
+.wp-embed-aspect-9-16 .wp-block-embed__wrapper::before {
+	content: "";
+	display: block;
+	padding-top: 177.77%;
+}
+
+.wp-embed-aspect-3-4 .wp-block-embed__wrapper::before {
+	content: "";
+	display: block;
+	padding-top: 133.33%;
+}
+
+.wp-block-video video {
+	max-width: 100%;
+	height: auto;
+}
+
+/* Galleries: fluid items that collapse gracefully on small screens. */
+
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 0.75rem;
+}
+
+.gallery-item {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+.gallery-item img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: var(--wt-radius-sm);
+}
+
+.gallery-caption {
+	font-size: 0.85rem;
+	color: var(--wt-color-muted);
+}
+
+/* Wide content elements scroll instead of breaking the layout on phones. */
+
+.wp-block-table,
+.entry-content table,
+.page-content table {
+	max-width: 100%;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
 a {
 	color: var(--wt-color-primary-dark);
 	text-decoration-thickness: 0.08em;
