@@ -45,3 +45,5 @@ wp-config.php
 # Note: If you wish to whitelist themes,
 # uncomment the next line
 #/wp-content/themes
+# Composer vendor (installed via composer install in CI)
+/vendor/

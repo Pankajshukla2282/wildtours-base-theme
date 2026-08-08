@@ -1,9 +1,14 @@
 {
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "59e4d8108e14b8f6067f80554f4db267",
     "packages": [
         {
             "name": "composer/installers",
             "version": "v2.3.0",
-            "version_normalized": "2.3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
@@ -27,7 +32,6 @@
                 "symfony/phpunit-bridge": "^7.1.1",
                 "symfony/process": "^5 || ^6 || ^7"
             },
-            "time": "2024-06-24T20:46:46+00:00",
             "type": "composer-plugin",
             "extra": {
                 "class": "Composer\\Installers\\Plugin",
@@ -36,7 +40,6 @@
                 },
                 "plugin-modifies-install-path": true
             },
-            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Composer\\Installers\\": "src/Composer/Installers"
@@ -147,9 +150,18 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "./installers"
+            "time": "2024-06-24T20:46:46+00:00"
         }
     ],
-    "dev": true,
-    "dev-package-names": []
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {},
+    "prefer-stable": true,
+    "prefer-lowest": false,
+    "platform": {
+        "php": "^8.2"
+    },
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
