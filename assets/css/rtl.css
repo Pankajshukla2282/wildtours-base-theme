@@ -1,0 +1,93 @@
+/*
+ * WildTours Base Theme RTL Overrides
+ *
+ * Loaded automatically when the site language is RTL.
+ */
+
+body {
+	direction: rtl;
+}
+
+/* Card CTA aligned to the inline end. */
+.card-cta {
+	justify-self: end;
+}
+
+/* Itinerary rail on the right. */
+.pwt-itinerary-day {
+	grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.pwt-itinerary-day:not(:last-child)::before {
+	left: auto;
+	right: 1.25rem;
+}
+
+.pwt-itinerary-content {
+	grid-column: 1;
+	grid-row: 1;
+}
+
+.pwt-itinerary-marker {
+	grid-column: 2;
+	grid-row: 1;
+}
+
+/* Pricing table text alignment. */
+.pwt-pricing-seasons th,
+.pwt-pricing-seasons td,
+.pwt-pricing-seasons-title {
+	text-align: right;
+}
+
+/* CTA band actions to the start in RTL. */
+.pwt-cta-band-actions {
+	flex-direction: row-reverse;
+}
+
+/* Gallery caption alignment. */
+.pwt-gallery-caption {
+	text-align: right;
+}
+
+/* FAQ summary arrow. */
+.pwt-faq-question::after {
+	order: 0;
+	margin-inline-start: 0;
+}
+
+/* Newsletter layout in RTL. */
+.pwt-newsletter-form {
+	flex-direction: row-reverse;
+}
+
+/* Floating elements mirror. */
+@media (min-width: 640px) {
+	.pwt-whatsapp-float {
+		right: auto;
+		left: 1.25rem;
+	}
+
+	.pwt-back-to-top {
+		right: auto;
+		left: 1.25rem;
+	}
+}
+
+/* Sidebar layout flips to the left in RTL. */
+@media (min-width: 961px) {
+	.content-area--with-sidebar {
+		grid-template-columns: 320px minmax(0, 1fr);
+	}
+}
+
+/* Skip link mirrors. */
+.skip-link {
+	left: auto;
+	right: -9999px;
+}
+
+.skip-link:focus {
+	left: auto;
+	right: 1rem;
+}

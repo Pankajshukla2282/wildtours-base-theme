@@ -56,6 +56,15 @@ final class AssetManager
             Theme::assetVersion('css/frontend.css')
         );
 
+        if (is_rtl()) {
+            wp_enqueue_style(
+                'wildtours-base-rtl',
+                Theme::assetUri('css/rtl.css'),
+                ['wildtours-base'],
+                Theme::assetVersion('css/rtl.css')
+            );
+        }
+
         wp_enqueue_script(
             'wildtours-base',
             Theme::assetUri('js/frontend.js'),
