@@ -65,15 +65,6 @@ if (class_exists('WooCommerce')) {
 }
 
 /**
- * Getwid.
- */
-if (defined('GETWID_VERSION')) {
-    /**
-     * Getwid compatibility hooks.
-     */
-}
-
-/**
  * Elementor.
  */
 if (defined('ELEMENTOR_VERSION')) {

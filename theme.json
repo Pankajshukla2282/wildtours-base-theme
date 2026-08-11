@@ -65,6 +65,26 @@
           "slug": "black",
           "name": "Black",
           "color": "#000000"
+        },
+        {
+          "slug": "base",
+          "name": "Base",
+          "color": "#FFFFFF"
+        },
+        {
+          "slug": "contrast",
+          "name": "Contrast",
+          "color": "#172018"
+        },
+        {
+          "slug": "light-blue",
+          "name": "Light Blue",
+          "color": "#E3EDF2"
+        },
+        {
+          "slug": "dark-blue",
+          "name": "Dark Blue",
+          "color": "#1F3A5F"
         }
       ],
       "gradients": [

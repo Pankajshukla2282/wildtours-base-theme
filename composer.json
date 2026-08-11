@@ -1,6 +1,6 @@
 {
     "name": "wildtours/base-theme",
-    "description": "Enterprise WordPress base theme for WildTours, compatible with Gutenberg and Getwid Base architecture.",
+    "description": "Enterprise WordPress base theme for WildTours, compatible with Gutenberg block editor patterns.",
     "type": "wordpress-theme",
     "license": "GPL-2.0-or-later",
 
@@ -14,7 +14,6 @@
         "wordpress",
         "theme",
         "gutenberg",
-        "getwid",
         "travel",
         "enterprise"
     ],
