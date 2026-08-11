@@ -1,28 +1,14 @@
 <?php
-
 /**
- * Pricing plans pattern.
- *
- * @package WildTours\Base
+ * Title: Pricing Plans
+ * Slug: wildtours/pricing-plans
+ * Description: Three pricing tiers for packages.
+ * Categories: wildtours
+ * Keywords: pricing, plans, price, packages
+ * Viewport Width: 1280
  */
-
-declare(strict_types=1);
-
-defined('ABSPATH') || exit;
-
-if (!function_exists('register_block_pattern')) {
-    return;
-}
-
-register_block_pattern(
-    'wildtours/pricing-plans',
-    [
-        'title'         => __('Pricing Plans', 'wildtours-base'),
-        'description'   => __('Three pricing tiers for packages.', 'wildtours-base'),
-        'categories'    => ['wildtours'],
-        'keywords'      => ['pricing', 'plans', 'price', 'packages'],
-        'viewportWidth' => 1280,
-        'content'       => '<!-- wp:group {"align":"wide"} -->
+?>
+<!-- wp:group {"align":"wide"} -->
 <div class="wp-block-group alignwide"><!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Choose your package</h2>
 <!-- /wp:heading -->
@@ -88,6 +74,4 @@ register_block_pattern(
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
-<!-- /wp:group -->',
-    ]
-);
+<!-- /wp:group -->

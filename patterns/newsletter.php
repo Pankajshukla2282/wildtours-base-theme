@@ -1,28 +1,14 @@
 <?php
-
 /**
- * Newsletter pattern.
- *
- * @package WildTours\Base
+ * Title: Newsletter Signup
+ * Slug: wildtours/newsletter
+ * Description: A newsletter signup band for deals and safari tips.
+ * Categories: wildtours
+ * Keywords: newsletter, subscribe, email, deals
+ * Viewport Width: 1280
  */
-
-declare(strict_types=1);
-
-defined('ABSPATH') || exit;
-
-if (!function_exists('register_block_pattern')) {
-    return;
-}
-
-register_block_pattern(
-    'wildtours/newsletter',
-    [
-        'title'         => __('Newsletter Signup', 'wildtours-base'),
-        'description'   => __('A newsletter signup band for deals and safari tips.', 'wildtours-base'),
-        'categories'    => ['wildtours'],
-        'keywords'      => ['newsletter', 'subscribe', 'email', 'deals'],
-        'viewportWidth' => 1280,
-        'content'       => '<!-- wp:group {"align":"full","backgroundColor":"surface-alt","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"layout":{"type":"constrained"}} -->
+?>
+<!-- wp:group {"align":"full","backgroundColor":"surface-alt","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull has-surface-alt-background-color has-background" style="padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--40)"><!-- wp:columns {"verticalAlignment":"center"} -->
 <div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:heading {"level":3} -->
@@ -40,6 +26,4 @@ register_block_pattern(
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
-<!-- /wp:group -->',
-    ]
-);
+<!-- /wp:group -->

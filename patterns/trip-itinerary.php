@@ -1,28 +1,14 @@
 <?php
-
 /**
- * Trip itinerary pattern.
- *
- * @package WildTours\Base
+ * Title: Trip Itinerary
+ * Slug: wildtours/trip-itinerary
+ * Description: A day-by-day itinerary layout with numbered days.
+ * Categories: wildtours
+ * Keywords: itinerary, days, trip, schedule
+ * Viewport Width: 1280
  */
-
-declare(strict_types=1);
-
-defined('ABSPATH') || exit;
-
-if (!function_exists('register_block_pattern')) {
-    return;
-}
-
-register_block_pattern(
-    'wildtours/trip-itinerary',
-    [
-        'title'         => __('Trip Itinerary', 'wildtours-base'),
-        'description'   => __('A day-by-day itinerary layout with numbered days.', 'wildtours-base'),
-        'categories'    => ['wildtours'],
-        'keywords'      => ['itinerary', 'days', 'trip', 'schedule'],
-        'viewportWidth' => 1280,
-        'content'       => '<!-- wp:group {"align":"wide"} -->
+?>
+<!-- wp:group {"align":"wide"} -->
 <div class="wp-block-group alignwide"><!-- wp:heading -->
 <h2 class="wp-block-heading">Your Itinerary</h2>
 <!-- /wp:heading -->
@@ -58,6 +44,4 @@ register_block_pattern(
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
-<!-- /wp:group -->',
-    ]
-);
+<!-- /wp:group -->

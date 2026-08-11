@@ -1,28 +1,14 @@
 <?php
-
 /**
- * CTA band pattern.
- *
- * @package WildTours\Base
+ * Title: Call to Action Band
+ * Slug: wildtours/cta-band
+ * Description: A full-width call to action with headline and two buttons.
+ * Categories: wildtours
+ * Keywords: cta, band, booking, travel
+ * Viewport Width: 1280
  */
-
-declare(strict_types=1);
-
-defined('ABSPATH') || exit;
-
-if (!function_exists('register_block_pattern')) {
-    return;
-}
-
-register_block_pattern(
-    'wildtours/cta-band',
-    [
-        'title'         => __('Call to Action Band', 'wildtours-base'),
-        'description'   => __('A full-width call to action with headline and two buttons.', 'wildtours-base'),
-        'categories'    => ['wildtours'],
-        'keywords'      => ['cta', 'band', 'booking', 'travel'],
-        'viewportWidth' => 1280,
-        'content'       => '<!-- wp:group {"align":"full","backgroundColor":"primary-dark","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
+?>
+<!-- wp:group {"align":"full","backgroundColor":"primary-dark","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
 <!-- wp:columns {"verticalAlignment":"center"} -->
 <div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:heading {"textColor":"white","fontSize":"x-large"} -->
@@ -46,6 +32,4 @@ register_block_pattern(
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
-<!-- /wp:group -->',
-    ]
-);
+<!-- /wp:group -->

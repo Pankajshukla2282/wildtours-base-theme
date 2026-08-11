@@ -1,28 +1,14 @@
 <?php
-
 /**
- * Trust badges pattern.
- *
- * @package WildTours\Base
+ * Title: Trust Badges
+ * Slug: wildtours/trust-badges
+ * Description: A row of trust signals ideal above or below a booking form.
+ * Categories: wildtours
+ * Keywords: trust, badges, guarantee, assurance
+ * Viewport Width: 1280
  */
-
-declare(strict_types=1);
-
-defined('ABSPATH') || exit;
-
-if (!function_exists('register_block_pattern')) {
-    return;
-}
-
-register_block_pattern(
-    'wildtours/trust-badges',
-    [
-        'title'         => __('Trust Badges', 'wildtours-base'),
-        'description'   => __('A row of trust signals ideal above or below a booking form.', 'wildtours-base'),
-        'categories'    => ['wildtours'],
-        'keywords'      => ['trust', 'badges', 'guarantee', 'assurance'],
-        'viewportWidth' => 1280,
-        'content'       => '<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
+?>
+<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
 <div class="wp-block-group alignwide"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"}},"backgroundColor":"surface","textColor":"ink"} -->
 <p class="has-ink-color has-surface-background-color has-text-color has-background" style="font-weight:600">Licensed &amp; insured operators</p>
 <!-- /wp:paragraph -->
@@ -38,6 +24,4 @@ register_block_pattern(
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"}},"backgroundColor":"surface","textColor":"ink"} -->
 <p class="has-ink-color has-surface-background-color has-text-color has-background" style="font-weight:600">Expert local guides</p>
 <!-- /wp:paragraph --></div>
-<!-- /wp:group -->',
-    ]
-);
+<!-- /wp:group -->

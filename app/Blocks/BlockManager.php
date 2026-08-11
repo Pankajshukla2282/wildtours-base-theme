@@ -18,11 +18,6 @@ final class BlockManager
     {
         add_action(
             'init',
-            [$this, 'registerPatterns']
-        );
-
-        add_action(
-            'init',
             [$this, 'registerPatternCategories']
         );
     }
@@ -42,21 +37,5 @@ final class BlockManager
                 'label' => __('WildTours', 'wildtours-base'),
             ]
         );
-    }
-
-    /**
-     * Register bundled patterns.
-     */
-    public function registerPatterns(): void
-    {
-        $directory = get_template_directory() . '/patterns';
-
-        if (!is_dir($directory)) {
-            return;
-        }
-
-        foreach (glob($directory . '/*.php') ?: [] as $file) {
-            require_once $file;
-        }
     }
 }

@@ -1,28 +1,14 @@
 <?php
-
 /**
- * Testimonials pattern.
- *
- * @package WildTours\Base
+ * Title: Testimonials
+ * Slug: wildtours/testimonials
+ * Description: Three customer testimonials with star ratings.
+ * Categories: wildtours
+ * Keywords: testimonials, reviews, quotes, social proof
+ * Viewport Width: 1280
  */
-
-declare(strict_types=1);
-
-defined('ABSPATH') || exit;
-
-if (!function_exists('register_block_pattern')) {
-    return;
-}
-
-register_block_pattern(
-    'wildtours/testimonials',
-    [
-        'title'         => __('Testimonials', 'wildtours-base'),
-        'description'   => __('Three customer testimonials with star ratings.', 'wildtours-base'),
-        'categories'    => ['wildtours'],
-        'keywords'      => ['testimonials', 'reviews', 'quotes', 'social proof'],
-        'viewportWidth' => 1280,
-        'content'       => '<!-- wp:group {"align":"wide"} -->
+?>
+<!-- wp:group {"align":"wide"} -->
 <div class="wp-block-group alignwide"><!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">What travellers say</h2>
 <!-- /wp:heading -->
@@ -70,6 +56,4 @@ register_block_pattern(
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
-<!-- /wp:group -->',
-    ]
-);
+<!-- /wp:group -->
