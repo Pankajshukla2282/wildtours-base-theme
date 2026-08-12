@@ -209,7 +209,36 @@
 
       "core/navigation": {
         "typography": {
-          "fontSize": "1rem"
+          "fontFamily": "var:preset|font-family|system",
+          "fontSize": "1rem",
+          "fontWeight": "600",
+          "lineHeight": "1.2"
+        },
+        "color": {
+          "text": true,
+          "background": true,
+          "link": true,
+          "visited": true,
+          "hover": true,
+          "active": true
+        },
+        "spacing": {
+          "padding": {
+            "top": "0.5rem",
+            "bottom": "0.5rem"
+          }
+        },
+        "elements": {
+          "link": {
+            "color": {
+              "text": "#1F4E2C"
+            },
+            ":hover": {
+              "color": {
+                "text": "#D97706"
+              }
+            }
+          }
         }
       },
 

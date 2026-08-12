@@ -100,10 +100,6 @@ defined('ABSPATH') || exit;
 
                 foreach ($registeredLocations as $location => $menuId) {
 
-                    if ('primary' === $location || empty($menuId)) {
-                        continue;
-                    }
-
                     $structure = $getMenuStructure((int) $menuId);
 
                     if ($structure['top'] > 0) {
@@ -150,6 +146,103 @@ defined('ABSPATH') || exit;
                 }
             }
 
+            if (0 === $fallbackMenuId) {
+
+                $pages = get_pages([
+                    'parent'      => 0,
+                    'sort_column' => 'menu_order,post_title',
+                    'post_status' => 'publish',
+                    'number'      => $maxTopLevelItems,
+                ]);
+
+                if (!empty($pages)) {
+                    echo '<ul id="primary-menu" class="primary-menu primary-menu--fallback">';
+
+                    $currentPageId = (int) get_queried_object_id();
+                    $ancestorIds = [];
+
+                    if ($currentPageId > 0) {
+                        $ancestorIds = array_map(
+                            'intval',
+                            get_post_ancestors($currentPageId)
+                        );
+                    }
+
+                    foreach ($pages as $page) {
+
+                        $childPages = get_pages([
+                            'parent'      => (int) $page->ID,
+                            'sort_column' => 'menu_order,post_title',
+                            'post_status' => 'publish',
+                        ]);
+
+                        $classes = [
+                            'menu-item',
+                            'page_item',
+                            'page-item-' . (string) $page->ID,
+                        ];
+
+                        if (!empty($childPages)) {
+                            $classes[] = 'menu-item-has-children';
+                            $classes[] = 'page_item_has_children';
+                        }
+
+                        if ($currentPageId === (int) $page->ID) {
+                            $classes[] = 'current_page_item';
+                            $classes[] = 'current-menu-item';
+                        }
+
+                        if (in_array((int) $page->ID, $ancestorIds, true)) {
+                            $classes[] = 'current_page_ancestor';
+                            $classes[] = 'current-menu-ancestor';
+                        }
+
+                        $classAttribute = esc_attr(implode(' ', $classes));
+
+                        echo '<li class="' . $classAttribute . '">';
+                        echo '<a href="' . esc_url(get_permalink($page->ID)) . '">';
+                        echo esc_html($page->post_title);
+                        echo '</a>';
+
+                        if (!empty($childPages)) {
+                            echo '<ul class="sub-menu children">';
+
+                            foreach ($childPages as $childPage) {
+                                $childClasses = [
+                                    'menu-item',
+                                    'page_item',
+                                    'page-item-' . (string) $childPage->ID,
+                                ];
+
+                                if ($currentPageId === (int) $childPage->ID) {
+                                    $childClasses[] = 'current_page_item';
+                                    $childClasses[] = 'current-menu-item';
+                                }
+
+                                if (in_array((int) $childPage->ID, $ancestorIds, true)) {
+                                    $childClasses[] = 'current_page_ancestor';
+                                    $childClasses[] = 'current-menu-ancestor';
+                                }
+
+                                $childClassAttribute = esc_attr(implode(' ', $childClasses));
+
+                                echo '<li class="' . $childClassAttribute . '">';
+                                echo '<a href="' . esc_url(get_permalink($childPage->ID)) . '">';
+                                echo esc_html($childPage->post_title);
+                                echo '</a>';
+                                echo '</li>';
+                            }
+
+                            echo '</ul>';
+                        }
+
+                        echo '</li>';
+                    }
+
+                    echo '</ul>';
+                }
+            }
+
             if (0 !== $fallbackMenuId) {
 
                 wp_nav_menu([
@@ -163,103 +256,6 @@ defined('ABSPATH') || exit;
 
                 return;
             }
-
-            $pages = get_pages([
-                'parent'      => 0,
-                'sort_column' => 'menu_order,post_title',
-                'post_status' => 'publish',
-                'number'      => $maxTopLevelItems,
-            ]);
-
-            if (empty($pages)) {
-                return;
-            }
-
-            $currentPageId = (int) get_queried_object_id();
-            $ancestorIds = [];
-
-            if ($currentPageId > 0) {
-                $ancestorIds = array_map(
-                    'intval',
-                    get_post_ancestors($currentPageId)
-                );
-            }
-
-            echo '<ul id="primary-menu" class="primary-menu primary-menu--fallback">';
-
-            foreach ($pages as $page) {
-
-                $childPages = get_pages([
-                    'parent'      => (int) $page->ID,
-                    'sort_column' => 'menu_order,post_title',
-                    'post_status' => 'publish',
-                ]);
-
-                $classes = [
-                    'menu-item',
-                    'page_item',
-                    'page-item-' . (string) $page->ID,
-                ];
-
-                if (!empty($childPages)) {
-                    $classes[] = 'menu-item-has-children';
-                    $classes[] = 'page_item_has_children';
-                }
-
-                if ($currentPageId === (int) $page->ID) {
-                    $classes[] = 'current_page_item';
-                    $classes[] = 'current-menu-item';
-                }
-
-                if (in_array((int) $page->ID, $ancestorIds, true)) {
-                    $classes[] = 'current_page_ancestor';
-                    $classes[] = 'current-menu-ancestor';
-                }
-
-                $classAttribute = esc_attr(implode(' ', $classes));
-
-                echo '<li class="' . $classAttribute . '">';
-                echo '<a href="' . esc_url(get_permalink($page->ID)) . '">';
-                echo esc_html($page->post_title);
-                echo '</a>';
-
-                if (!empty($childPages)) {
-                    echo '<ul class="sub-menu children">';
-
-                    foreach ($childPages as $childPage) {
-
-                        $childClasses = [
-                            'menu-item',
-                            'page_item',
-                            'page-item-' . (string) $childPage->ID,
-                        ];
-
-                        if ($currentPageId === (int) $childPage->ID) {
-                            $childClasses[] = 'current_page_item';
-                            $childClasses[] = 'current-menu-item';
-                        }
-
-                        if (in_array((int) $childPage->ID, $ancestorIds, true)) {
-                            $childClasses[] = 'current_page_ancestor';
-                            $childClasses[] = 'current-menu-ancestor';
-                        }
-
-                        $childClassAttribute = esc_attr(implode(' ', $childClasses));
-
-                        echo '<li class="' . $childClassAttribute . '">';
-                        echo '<a href="' . esc_url(get_permalink($childPage->ID)) . '">';
-                        echo esc_html($childPage->post_title);
-                        echo '</a>';
-                        echo '</li>';
-                    }
-
-                    echo '</ul>';
-                }
-
-                echo '</li>';
-            }
-
-            echo '</ul>';
         },
         'depth'          => 3,
     ]);
