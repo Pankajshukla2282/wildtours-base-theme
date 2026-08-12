@@ -22,7 +22,7 @@ $theme = wp_get_theme();
 
 define('WILDTOURS_BASE_VERSION', (string) $theme->get('Version'));
 define('WILDTOURS_BASE_PATH', trailingslashit(__DIR__));
-define('WILDTOURS_BASE_URL', trailingslashit(get_theme_file_uri()));
+define('WILDTOURS_BASE_URL', trailingslashit(get_template_directory_uri()));
 
 /*
 |--------------------------------------------------------------------------

@@ -34,11 +34,21 @@ final class Theme
     {
         $path = ltrim($path, '/');
 
+        /*
+         * This class belongs to the base theme.  get_theme_file_path() is
+         * child-theme aware and therefore points at the active child theme
+         * when WildTours Base is used as a parent.  That caused the base
+         * theme's CSS/JS/PHP files to resolve to the child theme directory.
+         */
+        $basePath = defined('WILDTOURS_BASE_PATH')
+            ? WILDTOURS_BASE_PATH
+            : trailingslashit(get_template_directory());
+
         if ($path === '') {
-            return trailingslashit(get_theme_file_path());
+            return trailingslashit($basePath);
         }
 
-        return get_theme_file_path($path);
+        return trailingslashit($basePath) . $path;
     }
 
     /**
@@ -48,11 +58,19 @@ final class Theme
     {
         $path = ltrim($path, '/');
 
+        /*
+         * Always resolve URLs from the parent/base theme.  WordPress's
+         * get_theme_file_uri() resolves child-theme files first.
+         */
+        $baseUri = defined('WILDTOURS_BASE_URL')
+            ? WILDTOURS_BASE_URL
+            : trailingslashit(get_template_directory_uri());
+
         if ($path === '') {
-            return trailingslashit(get_theme_file_uri());
+            return trailingslashit($baseUri);
         }
 
-        return get_theme_file_uri($path);
+        return trailingslashit($baseUri) . $path;
     }
 
     /**
