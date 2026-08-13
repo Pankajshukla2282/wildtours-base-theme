@@ -72,6 +72,8 @@ final class AssetManager
             Theme::assetVersion('js/frontend.js'),
             true
         );
+
+        wp_script_add_data('wildtours-base', 'strategy', 'defer');
     }
 
     /**
@@ -130,6 +132,8 @@ final class AssetManager
             Theme::assetVersion('js/navigation.js'),
             true
         );
+
+        wp_script_add_data('wildtours-navigation', 'strategy', 'defer');
     }
     
 

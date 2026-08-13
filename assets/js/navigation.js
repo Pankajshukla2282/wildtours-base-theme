@@ -74,7 +74,7 @@ const initNavigation = () => {
             // Desktop navigation is always visible.
             navigation.classList.add('is-open');
             menu.classList.add('is-open');
-            menu.style.display = 'flex';
+            menu.style.removeProperty('display');
 
             if (button) {
                 button.setAttribute('aria-expanded', 'true');

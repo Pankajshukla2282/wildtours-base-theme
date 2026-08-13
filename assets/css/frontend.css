@@ -1254,17 +1254,6 @@ body.front-page .breadcrumbs {
 	margin-bottom: 1.25rem;
 }
 
-.pwt-single-wrap {
-	margin-top: 1rem;
-}
-
-.pwt-single-hero {
-	margin-bottom: 1.25rem;
-}
-
-.pwt-single-hero img {
-	height: clamp(240px, 32vw, 380px);
-}
 
 @media (max-width: 960px) {
 	.primary-navigation {
@@ -2622,4 +2611,288 @@ body.pwt-blank .pwt-blank-main > * {
 	.site-header .primary-menu .sub-menu li.page_item_has_children > a {
 		padding-right: var(--wt-nav-link-padding-right);
 	}
+}
+
+/* ========================================================================
+   WildTours Base Theme 1.2.0 — generic responsive foundation
+   ------------------------------------------------------------------------
+   Site-independent layout, navigation, image and responsive behavior lives
+   here. Panna Wild Tours-specific styling belongs in its child theme/plugin.
+   ======================================================================== */
+
+/* True full-width site shell. */
+html, body { width: 100%; max-width: 100%; }
+body #page {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    box-sizing: border-box;
+    border-left: 0;
+    border-right: 0;
+}
+
+.site-main,
+.site-header,
+.site-footer,
+.content-area,
+.wp-site-blocks,
+.wp-site-blocks > * {
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+img, video, iframe, svg { max-width: 100%; }
+img { height: auto; }
+
+/* Generic content figures: never impose fixed desktop widths/offsets. */
+.entry-content figure,
+.page-content figure,
+.entry-content .wp-block-image,
+.page-content .wp-block-image {
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    margin-inline: auto;
+    box-sizing: border-box;
+    float: none;
+}
+
+.entry-content figure img,
+.page-content figure img,
+.entry-content .wp-block-image img,
+.page-content .wp-block-image img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    min-width: 0;
+    margin-inline: auto;
+    object-fit: contain;
+    object-position: center;
+    transform: none;
+}
+
+/* Generic featured images preserve their natural aspect ratio. */
+.featured-image,
+.post-thumbnail {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+    box-sizing: border-box;
+}
+
+.featured-image img,
+.post-thumbnail img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+    object-position: center;
+    transform: none;
+    box-sizing: border-box;
+}
+
+/* Generic navigation: same hover/focus-within interaction everywhere. */
+.site-header .primary-menu li { position: relative; }
+.site-header .primary-menu .sub-menu {
+    box-sizing: border-box;
+    list-style: none;
+    gap: 0;
+    row-gap: 0;
+    column-gap: 0;
+    align-content: start;
+    grid-auto-rows: max-content;
+}
+.site-header .primary-menu .sub-menu li {
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    row-gap: 0;
+    column-gap: 0;
+    min-width: 0;
+}
+.site-header .primary-menu li:hover > .sub-menu,
+.site-header .primary-menu li:focus-within > .sub-menu,
+.site-header .primary-menu li:hover > .sub-menu[hidden],
+.site-header .primary-menu li:focus-within > .sub-menu[hidden] {
+    display: grid !important;
+}
+.site-header .primary-menu .sub-menu[hidden] { display: none; }
+
+/* Desktop dropdowns. */
+@media (min-width: 961px) {
+    .site-header .primary-navigation { grid-template-columns: 1fr; }
+    .site-header .primary-navigation > .menu-toggle { display: none; }
+    .site-header .primary-menu {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+    .site-header .primary-navigation.is-open .primary-menu,
+    .site-header .primary-menu.is-open { display: flex; }
+    .site-header .primary-menu > li { padding: 0; }
+    .site-header .primary-menu .sub-menu {
+        position: absolute;
+        top: calc(100% + 0.35rem);
+        left: 0;
+        right: auto;
+        width: max-content;
+        min-width: 12.5rem;
+        max-width: min(32rem, 80vw);
+        height: auto;
+        max-height: none;
+        overflow: visible;
+        padding: 0.45rem;
+        border: 1px solid var(--wt-color-border);
+        border-radius: var(--wt-radius-md);
+        background: rgba(255,255,255,.98);
+        box-shadow: var(--wt-shadow-strong);
+    }
+    .site-header .primary-menu .sub-menu .sub-menu {
+        top: 0;
+        left: calc(100% + 0.35rem);
+        right: auto;
+        margin-top: 0;
+    }
+    .site-header .primary-menu .sub-menu > li { display: block; width: 100%; }
+    .site-header .primary-menu .sub-menu a {
+        display: block;
+        width: 100%;
+        white-space: normal;
+        box-sizing: border-box;
+    }
+}
+
+/* Mobile: title + hamburger + search share one compact row. */
+@media (max-width: 960px) {
+    .site-header {
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: auto;
+        align-items: center;
+        gap: .5rem .65rem;
+    }
+    .site-header .site-branding {
+        grid-column: 1;
+        grid-row: 1;
+        min-width: 0;
+    }
+    .site-header .site-title,
+    .site-header .site-title a {
+        min-width: 0;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: clamp(1.05rem, 5vw, 1.45rem);
+        line-height: 1.2;
+    }
+    .site-header .site-description { display: none; }
+    .site-header .primary-navigation {
+        grid-column: 2;
+        grid-row: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: .35rem;
+        width: auto;
+        min-width: 0;
+        position: static;
+    }
+    .site-header .primary-navigation > .menu-toggle {
+        order: 1;
+        flex: 0 0 auto;
+        min-width: 2.4rem;
+        min-height: 2.4rem;
+        padding: .3rem .5rem;
+    }
+    .site-header .primary-navigation > .header-search {
+        order: 2;
+        width: auto;
+        min-width: 0;
+        position: relative;
+    }
+    .site-header .header-search-toggle {
+        display: inline-flex;
+        min-width: 2.4rem;
+        min-height: 2.4rem;
+        padding: .3rem .5rem;
+    }
+    .site-header .primary-navigation > .primary-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: auto;
+        width: min(32rem, calc(100vw - 1rem));
+        max-width: calc(100vw - 1rem);
+        max-height: calc(100vh - 6rem);
+        overflow-y: auto;
+        overflow-x: hidden;
+        margin: 0;
+        box-sizing: border-box;
+        z-index: 40;
+    }
+    .site-header .primary-navigation.is-open > .primary-menu,
+    .site-header .primary-menu.is-open { display: grid; }
+
+    /* Mobile submenu is an in-panel block below its parent. */
+    .site-header .primary-menu .sub-menu,
+    .site-header .primary-menu .sub-menu .sub-menu {
+        position: static;
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        height: auto;
+        max-height: none;
+        margin: .1rem 0 0;
+        padding: .35rem 0 .35rem .7rem;
+        border-left: 2px solid rgba(47,111,62,.18);
+        border-radius: 0;
+        background: rgba(247,249,245,.96);
+        box-shadow: none;
+        overflow: visible;
+        align-content: start;
+        grid-auto-rows: max-content;
+    }
+    .site-header .primary-menu .sub-menu > li { display: block; width: 100%; }
+    .site-header .primary-menu .sub-menu a {
+        display: block;
+        width: 100%;
+        min-height: 2rem;
+        padding: .4rem .65rem;
+        white-space: normal;
+        box-sizing: border-box;
+    }
+    .site-header .header-search-panel {
+        position: absolute;
+        top: calc(100% + .35rem);
+        right: 0;
+        left: auto;
+        width: min(24rem, calc(100vw - 1rem));
+        max-width: calc(100vw - 1rem);
+        min-width: 0;
+        box-sizing: border-box;
+        z-index: 45;
+        overflow: hidden;
+    }
+    .site-header .header-search .search-form { width: 100%; min-width: 0; }
+    .site-header .header-search .search-field { width: 100%; min-width: 0; box-sizing: border-box; }
+}
+
+@media (max-width: 380px) {
+    .site-header { padding-inline: .65rem; gap: .3rem .4rem; }
+    .site-header .primary-navigation { gap: .2rem; }
+    .site-header .primary-navigation > .menu-toggle,
+    .site-header .header-search-toggle { min-width: 2.25rem; min-height: 2.25rem; }
 }
