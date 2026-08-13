@@ -2620,7 +2620,7 @@ body.pwt-blank .pwt-blank-main > * {
    here. Panna Wild Tours-specific styling belongs in its child theme/plugin.
    ======================================================================== */
 
-/* True full-width site shell. */
+/* True full-width site shell with a centered readable main container. */
 html, body { width: 100%; max-width: 100%; }
 body #page {
     width: 100%;
@@ -2629,6 +2629,21 @@ body #page {
     box-sizing: border-box;
     border-left: 0;
     border-right: 0;
+}
+
+/* Keep the viewport shell full width, but center the primary page content. */
+body .site-main {
+    width: min(1200px, calc(100% - 2rem));
+    max-width: 1200px;
+    margin-inline: auto;
+    box-sizing: border-box;
+}
+
+/* Full-width templates can opt out explicitly. */
+body .site-main.alignfull,
+body .site-main.is-layout-constrained {
+    width: 100%;
+    max-width: none;
 }
 
 .site-main,
@@ -2895,4 +2910,38 @@ img { height: auto; }
     .site-header .primary-navigation { gap: .2rem; }
     .site-header .primary-navigation > .menu-toggle,
     .site-header .header-search-toggle { min-width: 2.25rem; min-height: 2.25rem; }
+}
+
+
+/* ========================================================================
+   Navigation geometry hardening
+   ------------------------------------------------------------------------
+   Keep the pointer path continuous between a desktop menu item and its
+   submenu. The panel touches/overlaps the parent by 1px so :hover and
+   :focus-within never collapse while the pointer crosses the boundary.
+   ======================================================================== */
+@media (min-width: 961px) {
+    .site-header .primary-menu > li > .sub-menu {
+        top: calc(100% - 1px);
+        margin-top: 0 !important;
+    }
+
+    .site-header .primary-menu .sub-menu .sub-menu {
+        top: -1px;
+        left: calc(100% - 1px);
+        margin-top: 0 !important;
+    }
+
+    .site-header .primary-menu li:hover > .sub-menu,
+    .site-header .primary-menu li:focus-within > .sub-menu {
+        display: grid;
+    }
+}
+
+@media (max-width: 960px) {
+    body .site-main {
+        width: calc(100% - 1.5rem);
+        max-width: 1200px;
+        margin-inline: auto;
+    }
 }
