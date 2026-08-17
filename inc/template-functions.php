@@ -412,6 +412,85 @@ if (!function_exists('wildtours_repeater')) {
     }
 }
 
+if (!function_exists('wildtours_nav_items')) {
+
+    /**
+     * Primary navigation tree from the plugin's SCF options page.
+     *
+     * @return array<int, array{label:string, url:string, mega:bool, children:array}>
+     */
+    function wildtours_nav_items(): array
+    {
+        if (class_exists(\PWT\Frontend\Navigation::class)) {
+            $items = \PWT\Frontend\Navigation::items();
+
+            if ($items !== []) {
+                return $items;
+            }
+        }
+
+        return [];
+    }
+}
+
+if (!function_exists('wildtours_nav_header_cta')) {
+
+    /**
+     * Header CTA (label + url) from SCF options, theme mods as fallback.
+     *
+     * @return array{label:string, url:string}
+     */
+    function wildtours_nav_header_cta(): array
+    {
+        if (class_exists(\PWT\Frontend\Navigation::class)) {
+            $cta = \PWT\Frontend\Navigation::headerCta();
+
+            if ($cta['label'] !== '' || $cta['url'] !== '') {
+                return $cta;
+            }
+        }
+
+        return [
+            'label' => (string) get_theme_mod('header_cta_label', ''),
+            'url' => (string) get_theme_mod('header_cta_url', ''),
+        ];
+    }
+}
+
+if (!function_exists('wildtours_nav_topbar_text')) {
+
+    /**
+     * Top bar text from SCF options, theme mods as fallback.
+     */
+    function wildtours_nav_topbar_text(): string
+    {
+        if (class_exists(\PWT\Frontend\Navigation::class)) {
+            $text = \PWT\Frontend\Navigation::topbarText();
+
+            if ($text !== '') {
+                return $text;
+            }
+        }
+
+        return (string) get_theme_mod('topbar_text', '');
+    }
+}
+
+if (!function_exists('wildtours_fluent_form')) {
+
+    /**
+     * Fluent Forms id for a form title, or 0 when unavailable.
+     */
+    function wildtours_fluent_form(string $title): int
+    {
+        if (class_exists(\PWT\Integrations\FluentForms::class)) {
+            return \PWT\Integrations\FluentForms::formIdByTitle($title);
+        }
+
+        return 0;
+    }
+}
+
 if (!function_exists('wildtours_lines_to_items')) {
 
     /**

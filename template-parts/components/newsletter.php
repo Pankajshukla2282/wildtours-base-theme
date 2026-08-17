@@ -27,6 +27,10 @@ $pwt_text = (string) ($args['text'] ?? __('Subscribe for seasonal offers and saf
 $pwt_class = isset($args['class']) ? ' ' . trim((string) $args['class']) : '';
 
 $pwt_success = isset($_GET['pwt_newsletter']) && (string) $_GET['pwt_newsletter'] === 'success';
+
+$pwt_fluent_id = function_exists('wildtours_fluent_form')
+    ? wildtours_fluent_form('PWT Newsletter')
+    : 0;
 ?>
 <section class="pwt-newsletter<?php echo esc_attr($pwt_class); ?>">
 
@@ -45,6 +49,10 @@ $pwt_success = isset($_GET['pwt_newsletter']) && (string) $_GET['pwt_newsletter'
         <p class="pwt-newsletter-success" role="status">
             <?php esc_html_e('Thank you! Please check your inbox to confirm your subscription.', 'wildtours-base'); ?>
         </p>
+
+    <?php elseif ($pwt_fluent_id > 0) : ?>
+
+        <?php echo do_shortcode('[fluentform id="' . esc_attr((string) $pwt_fluent_id) . '"]'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 
     <?php else : ?>
 

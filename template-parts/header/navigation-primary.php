@@ -37,9 +37,17 @@ defined('ABSPATH') || exit;
 
     <?php
 
-    wp_nav_menu([
-        'theme_location' => 'primary',
-        'menu_id'        => 'primary-menu',
+    $pwt_nav_items = function_exists('wildtours_nav_items') ? wildtours_nav_items() : [];
+
+    if ($pwt_nav_items !== [] && class_exists(\PWT\Frontend\Navigation::class)) {
+
+        echo \PWT\Frontend\Navigation::renderMenu($pwt_nav_items); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+    } else {
+
+        wp_nav_menu([
+            'theme_location' => 'primary',
+            'menu_id'        => 'primary-menu',
         'menu_class'     => 'primary-menu',
         'container'      => false,
         'fallback_cb'    => static function (): void {
@@ -258,7 +266,9 @@ defined('ABSPATH') || exit;
             }
         },
         'depth'          => 3,
-    ]);
+        ]);
+
+    }
 
     ?>
 

@@ -70,9 +70,11 @@ defined('ABSPATH') || exit;
     </header>
 
     <?php
-    get_template_part(
-        'template-parts/components/breadcrumbs'
-    );
+    if (apply_filters('wildtours/base/show_breadcrumbs', false)) {
+        get_template_part(
+            'template-parts/components/breadcrumbs'
+        );
+    }
     ?>
 
     <main
