@@ -55,7 +55,9 @@
 	--wt-radius-lg: 24px;
 	--wt-radius-md: 18px;
 	--wt-radius-sm: 12px;
-	--wt-layout-width: 100%;
+	--wt-layout-width: 1400px;
+	--wt-content-width: 1200px;
+	--wt-wide-width: 1400px;
 	--wt-nav-link-padding-inline: 0.85rem;
 	--wt-nav-link-padding-right: 0.85rem;
 	--wt-nav-link-padding-right-has-children: 2.5rem;
@@ -113,7 +115,8 @@ textarea {
 }
 
 body #page {
-	width: min(var(--wt-layout-width), calc(100vw - 2rem));
+	width: min(var(--wt-layout-width), calc(100vw - 1rem));
+	max-width: var(--wt-layout-width);
 	margin: 0 auto;
 	overflow: visible;
 	border: 1px solid var(--wt-color-border);
@@ -123,6 +126,7 @@ body #page {
 	background: rgba(255, 255, 255, 0.82);
 	box-shadow: var(--wt-shadow-soft);
 	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
 }
 
 .alignfull {
@@ -269,6 +273,8 @@ body #page {
 	border-color: rgba(47, 111, 62, 0.28);
 	color: var(--wt-color-primary-dark);
 }
+
+.site-header .primary-menu[hidden] { display: none !important; }
 
 .site-header .primary-menu {
 	display: none;
@@ -538,9 +544,33 @@ body.front-page .breadcrumbs {
 .site-main {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr);
+	width: min(var(--wt-content-width), calc(100% - 2rem));
+	max-width: var(--wt-content-width);
+	margin-inline: auto;
 	gap: 1.5rem;
-	padding: clamp(1.25rem, 2vw, 2rem);
+	padding: clamp(1.25rem, 2vw, 2rem) 0;
 	}
+
+
+/* Keep the reading column centered while allowing intentional wide blocks. */
+.site-main > .alignwide {
+	width: min(var(--wt-wide-width), 100%);
+	max-width: var(--wt-wide-width);
+	margin-inline: auto;
+}
+
+.site-main > .alignfull {
+	width: 100%;
+	max-width: none;
+	margin-inline: 0;
+}
+
+@media (max-width: 960px) {
+	.site-main {
+		width: min(calc(100% - 2rem), var(--wt-content-width));
+		padding-block: 1rem;
+	}
+}
 
 .page-header,
 .archive-header {
@@ -1041,7 +1071,7 @@ a:focus {
 	.site-header .primary-menu > li.menu-item-has-children:hover > a,
 	.site-header .primary-menu > li.menu-item-has-children:focus-within > a,
 	.site-header .primary-menu > li.page_item_has_children:hover > a,
-	.site-header .primary-menu > li.page_item_has_children:focus-within > a, {
+	.site-header .primary-menu > li.page_item_has_children:focus-within > a {
 		border-bottom-left-radius: 0.55rem;
 		border-bottom-right-radius: 0.55rem;
 	}

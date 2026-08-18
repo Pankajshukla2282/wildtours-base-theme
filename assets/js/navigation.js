@@ -31,7 +31,7 @@ const initNavigation = () => {
 
         navigation.classList.toggle('is-open', expanded);
         menu.classList.toggle('is-open', expanded);
-        menu.style.display = expanded ? 'grid' : 'none';
+        menu.hidden = !expanded;
     };
 
     const setSearchState = (expanded, focusField = false) => {
@@ -74,7 +74,7 @@ const initNavigation = () => {
             // Desktop navigation is always visible.
             navigation.classList.add('is-open');
             menu.classList.add('is-open');
-            menu.style.removeProperty('display');
+            menu.hidden = false;
 
             if (button) {
                 button.setAttribute('aria-expanded', 'true');
