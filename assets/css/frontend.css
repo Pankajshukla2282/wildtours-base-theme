@@ -55,9 +55,9 @@
 	--wt-radius-lg: 24px;
 	--wt-radius-md: 18px;
 	--wt-radius-sm: 12px;
-	--wt-layout-width: 1400px;
-	--wt-content-width: 1200px;
-	--wt-wide-width: 1400px;
+	--wt-layout-width: 1440px;
+	--wt-content-width: 1440px;
+	--wt-wide-width: 1440px;
 	--wt-nav-link-padding-inline: 0.85rem;
 	--wt-nav-link-padding-right: 0.85rem;
 	--wt-nav-link-padding-right-has-children: 2.5rem;
@@ -1162,7 +1162,7 @@ body {
 }
 
 #page {
-	width: min(1200px, calc(100vw - 2rem));
+	width: min(var(--wt-layout-width), 100%);
 	margin: 1rem auto 2rem;
 	overflow: clip;
 }
@@ -1197,7 +1197,7 @@ body {
 }
 
 .breadcrumbs {
-	width: min(860px, calc(100vw - 2rem));
+	width: min(var(--wt-content-width), calc(100% - 2rem));
 	margin: 1rem auto 0;
 	padding: 0.75rem 1rem;
 	border: 1px solid rgba(21, 37, 23, 0.12);
@@ -1235,8 +1235,8 @@ body.front-page .breadcrumbs {
 
 .page-header,
 .archive-header {
-	max-width: 860px;
-	margin: 0 auto;
+	max-width: none;
+	margin: 0;
 	padding: clamp(1.25rem, 2vw, 2rem);
 	border: 1px solid rgba(21, 37, 23, 0.12);
 	border-radius: 24px;
@@ -1270,7 +1270,7 @@ body.front-page .breadcrumbs {
 }
 
 .pwt-site {
-	max-width: min(1200px, calc(100vw - 2rem));
+	max-width: var(--wt-content-width);
 	margin: 0 auto;
 }
 
@@ -1622,7 +1622,7 @@ body.pwt-blank .pwt-blank-main {
 }
 
 body.pwt-blank .pwt-blank-main > * {
-	max-width: min(1200px, calc(100vw - 2rem));
+	max-width: var(--wt-content-width);
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -2650,21 +2650,21 @@ body.pwt-blank .pwt-blank-main > * {
    here. Panna Wild Tours-specific styling belongs in its child theme/plugin.
    ======================================================================== */
 
-/* True full-width site shell with a centered readable main container. */
+/* Single centered site container driven by the container_width Customizer setting. */
 html, body { width: 100%; max-width: 100%; }
 body #page {
-    width: 100%;
-    max-width: none;
-    margin-inline: 0;
+    width: min(var(--wt-layout-width), 100%);
+    max-width: var(--wt-layout-width);
+    margin-inline: auto;
     box-sizing: border-box;
     border-left: 0;
     border-right: 0;
 }
 
-/* Keep the viewport shell full width, but center the primary page content. */
+/* Center the primary page content at the content width. */
 body .site-main {
-    width: min(1200px, calc(100% - 2rem));
-    max-width: 1200px;
+    width: min(var(--wt-content-width), calc(100% - 2rem));
+    max-width: var(--wt-content-width);
     margin-inline: auto;
     box-sizing: border-box;
 }
@@ -2971,7 +2971,7 @@ img { height: auto; }
 @media (max-width: 960px) {
     body .site-main {
         width: calc(100% - 1.5rem);
-        max-width: 1200px;
+        max-width: var(--wt-content-width);
         margin-inline: auto;
     }
 }

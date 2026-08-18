@@ -240,10 +240,12 @@ final class Hooks
     {
         $variables = [];
 
-        $width = (int) get_theme_mod('container_width', 1200);
+        $width = (int) get_theme_mod('container_width', 1440);
 
         if ($width >= 960) {
             $variables['--wt-layout-width'] = $width . 'px';
+            $variables['--wt-content-width'] = $width . 'px';
+            $variables['--wt-wide-width'] = $width . 'px';
         }
 
         $scheme = (string) get_theme_mod('color_scheme', 'forest');

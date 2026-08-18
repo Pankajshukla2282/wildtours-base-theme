@@ -61,7 +61,7 @@ final class CustomizerManager
         $wp_customize->add_setting(
             'container_width',
             [
-                'default'           => '1200',
+                'default'           => '1440',
                 'sanitize_callback' => 'absint',
                 'transport'         => 'refresh',
             ]
