@@ -84,7 +84,7 @@ final class AssetManager
         wp_enqueue_script(
             'wildtours-base-editor',
             Theme::assetUri('js/editor.js'),
-            ['wp-blocks', 'wp-element', 'wp-edit-post'],
+            ['wp-blocks', 'wp-dom-ready'],
             Theme::assetVersion('js/editor.js'),
             true
         );
