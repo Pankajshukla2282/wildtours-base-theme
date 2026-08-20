@@ -1767,29 +1767,30 @@ body.pwt-blank .pwt-blank-main > * {
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
-	gap: 0.75rem 1rem;
-	padding: 0.5rem 0;
+	gap: 0.25rem 1rem;
+	padding: 0.22rem 0;
 	border-bottom: 1px solid var(--wt-color-border);
+	line-height: 1.25;
 }
 
 .topbar-text {
 	margin: 0;
 	color: var(--wt-color-muted);
-	font-size: 0.88rem;
+	font-size: 0.8rem;
 }
 
 .topbar-utility {
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
-	gap: 0.6rem;
+	gap: 0.4rem;
 	margin-left: auto;
 }
 
 .site-header .topbar-cta {
-	min-height: 2.15rem;
-	padding: 0.3rem 1rem;
-	font-size: 0.88rem;
+	min-height: 1.7rem;
+	padding: 0.1rem 0.7rem;
+	font-size: 0.8rem;
 }
 
 .site-info {
@@ -2572,13 +2573,13 @@ body.pwt-blank .pwt-blank-main > * {
 .pwt-language {
 	display: inline-flex;
 	align-items: center;
-	min-height: 2rem;
-	padding: 0.2rem 0.7rem;
+	min-height: 1.7rem;
+	padding: 0.1rem 0.6rem;
 	border: 1px solid var(--wt-color-border);
 	border-radius: 999px;
 	background: var(--wt-color-surface);
 	color: var(--wt-color-primary-dark);
-	font-size: 0.88rem;
+	font-size: 0.8rem;
 	font-weight: 600;
 	text-decoration: none;
 }
