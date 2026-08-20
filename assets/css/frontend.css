@@ -218,6 +218,10 @@ body #page {
 	display: none;
 }
 
+.site-header .header-search.is-open .header-search-panel {
+	display: block;
+}
+
 .site-header .header-search.is-collapsible .header-search-toggle {
 	display: inline-flex;
 }
