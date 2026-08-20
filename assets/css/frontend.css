@@ -194,7 +194,7 @@ body #page {
 }
 
 .site-header .header-search-toggle {
-	display: none;
+	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	min-width: 2.35rem;
@@ -215,7 +215,7 @@ body #page {
 }
 
 .site-header .header-search-panel {
-	display: block;
+	display: none;
 }
 
 .site-header .header-search.is-collapsible .header-search-toggle {
@@ -1373,6 +1373,54 @@ body.front-page .breadcrumbs {
 
 	.primary-menu li:hover > .sub-menu,
 	.primary-menu li:focus-within > .sub-menu {
+		display: grid;
+	}
+
+	/* High-specificity desktop overrides: render the menu immediately on
+	   load (no JS-dependent reveal) and restore floating dropdowns that the
+	   `.site-header`-scoped mobile block would otherwise force inline. */
+	.site-header .primary-menu {
+		display: flex;
+		grid-column: auto;
+		grid-row: auto;
+	}
+
+	.site-header .primary-navigation.is-open .primary-menu,
+	.site-header .primary-menu.is-open {
+		display: flex;
+	}
+
+	.site-header .primary-menu .sub-menu {
+		display: none;
+		position: absolute;
+		top: calc(100% + 0.5rem);
+		left: 0;
+		min-width: 16rem;
+		padding: 0.6rem;
+		border: 1px solid rgba(21, 37, 23, 0.12);
+		border-radius: 18px;
+		background: rgba(255, 255, 255, 0.98);
+		box-shadow: 0 18px 42px rgba(15, 26, 18, 0.12);
+	}
+
+	.site-header .primary-menu .sub-menu .sub-menu {
+		top: 0;
+		left: calc(100% + 0.5rem);
+		margin-top: 0;
+		width: auto;
+		min-width: 16rem;
+		padding: 0.6rem;
+		border-left: 0;
+		border-radius: 18px;
+	}
+
+	.site-header .primary-menu .sub-menu li {
+		display: block;
+		width: auto;
+	}
+
+	.site-header .primary-menu li:hover > .sub-menu,
+	.site-header .primary-menu li:focus-within > .sub-menu {
 		display: grid;
 	}
 }
