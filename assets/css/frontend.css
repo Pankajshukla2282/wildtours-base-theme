@@ -1788,9 +1788,15 @@ body.pwt-blank .pwt-blank-main > * {
 }
 
 .site-header .topbar-cta {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	min-height: 1.7rem;
 	padding: 0.1rem 0.7rem;
 	font-size: 0.8rem;
+	line-height: 1;
+	white-space: nowrap;
+	vertical-align: middle;
 }
 
 .site-info {
@@ -2581,6 +2587,7 @@ body.pwt-blank .pwt-blank-main > * {
 	color: var(--wt-color-primary-dark);
 	font-size: 0.8rem;
 	font-weight: 600;
+	line-height: 1;
 	text-decoration: none;
 }
 
