@@ -2,6 +2,26 @@
  * WildTours Base Theme Frontend Styles
  */
 
+/* Responsive utility classes */
+.responsive-max {
+    max-width: 100%;
+    width: 100%;
+}
+
+.responsive-margin {
+    margin: 0 auto;
+}
+
+.responsive-padding {
+    padding: clamp(1rem, 2vw, 2rem);
+}
+
+@media (max-width: 960px) {
+    .responsive-padding {
+        padding: 1rem;
+    }
+}
+
 /* Accessible focus indicators. */
 :focus-visible {
 	outline: 3px solid var(--wt-color-accent);
@@ -115,18 +135,33 @@ textarea {
 }
 
 body #page {
-	width: min(var(--wt-layout-width), calc(100vw - 1rem));
+	width: min(var(--wt-layout-width), calc(100vw - 2rem));
 	max-width: var(--wt-layout-width);
 	margin: 0 auto;
 	overflow: visible;
 	border: 1px solid var(--wt-color-border);
-	border-radius: 0;
 	border-left: 0;
 	border-right: 0;
 	background: rgba(255, 255, 255, 0.82);
 	box-shadow: var(--wt-shadow-soft);
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
+}
+
+@media (max-width: 960px) {
+	body #page {
+		width: 100%;
+		margin: 0;
+		border-radius: 0;
+	}
+}
+
+@media (max-width: 960px) {
+	body #page {
+		width: 100%;
+		margin: 0;
+		border-radius: 0;
+	}
 }
 
 .alignfull {
@@ -501,7 +536,7 @@ body #page {
 	background: rgba(255, 255, 255, 0.92);
 	box-shadow: var(--wt-shadow-soft);
 	color: var(--wt-color-muted);
-	font-size: 0.92rem;
+	font-size: clamp(0.85rem, 1.5vw, 1rem);
 }
 
 .breadcrumbs a {
@@ -551,9 +586,16 @@ body.front-page .breadcrumbs {
 	width: min(var(--wt-content-width), calc(100% - 2rem));
 	max-width: var(--wt-content-width);
 	margin-inline: auto;
-	gap: 1.5rem;
+	gap: clamp(1rem, 2vw, 1.5rem);
 	padding: clamp(1.25rem, 2vw, 2rem) 0;
+}
+
+@media (max-width: 960px) {
+	.site-main {
+		width: 100%;
+		padding-block: 1rem;
 	}
+}
 
 
 /* Keep the reading column centered while allowing intentional wide blocks. */
@@ -754,7 +796,7 @@ body .pwt-site {
 
 .entry-footer {
 	margin-top: 1.5rem;
-	padding-top: 1rem;
+	padding-top: clamp(1rem, 2vw, 1.5rem);
 	border-top: 1px solid var(--wt-color-border);
 }
 
@@ -782,14 +824,14 @@ input[type="submit"] {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 2.75rem;
-	padding: 0.65rem 1.1rem;
+	min-height: clamp(2.5rem, 3vw, 3rem);
+	padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 3vw, 1.1rem);
 	border: 1px solid transparent;
 	border-radius: 999px;
 	background: var(--wt-color-primary);
 	color: #ffffff;
 	text-decoration: none;
-	transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+	transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .page-links a:hover,
@@ -805,6 +847,14 @@ input[type="submit"]:focus {
 	transform: translateY(-1px);
 }
 
+@media (max-width: 640px) {
+	.page-links a,
+.page-links span,
+.wp-block-button__link {
+		padding: clamp(0.4rem, 3vw, 0.6rem);
+	}
+}
+
 input[type="text"],
 input[type="email"],
 input[type="url"],
@@ -813,7 +863,7 @@ input[type="password"],
 textarea,
 select {
 	width: 100%;
-	padding: 0.85rem 1rem;
+	padding: clamp(0.85rem, 2vw, 1rem);
 	border: 1px solid var(--wt-color-border);
 	border-radius: var(--wt-radius-sm);
 	background: rgba(255, 255, 255, 0.96);
@@ -1567,7 +1617,7 @@ body.front-page .breadcrumbs {
 	.content-area--with-sidebar {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) 320px;
-		gap: 1.5rem;
+gap: clamp(1rem, 2vw, 1.5rem);
 		align-items: start;
 	}
 
